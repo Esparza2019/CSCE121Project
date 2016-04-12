@@ -127,7 +127,6 @@ void Game_window::build_win_2(){
 	attach(summary5_2);
 	attach(intro_2);
 	attach(button_cover_2);
-    attach(button_text_2);
 }
 
 void Game_window::takedown_win_2(){
@@ -138,10 +137,6 @@ void Game_window::takedown_win_2(){
 	detach(summary4_2);
 	detach(summary5_2);
 	detach(intro_2);
-    detach(button_text_2);
-    detach(button_cover_2);
-    detach(next_button_2);
-    
 }
 
 void Game_window::next_2(){
