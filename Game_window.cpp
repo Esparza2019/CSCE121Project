@@ -25,12 +25,20 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	
 	next_button_2(Point(x_max()-800, y_max()-200), 100, 50, "Continue", cb_next_2),
 	button_cover_2(Point(x_max()-800, y_max()-200), 100, 50),
-    button_text_2(Point(x_max()-796, y_max()-165), "Continue")
+    button_text_2(Point(x_max()-796, y_max()-165), "Continue"),
 	
 	
 //-----------------------------Screen 3---------------------------------------------------------
 
-	
+
+    high_scores(Point(w/10, h/8), "HIGH SCORES"),
+    background(Point(0,0), "project_background.gif"),
+    user_initials(Point{w/2-35, 800}, 70, 20, "Enter Initials: "),
+
+    next_button_3(Point(x_max()-800, y_max()-200), 100, 50, "Continue", cb_next_3),
+    button_cover_3(Point(x_max()-800, y_max()-200), 100, 50),
+    button_text_3(Point(x_max()-796, y_max()-165), "Continue")
+
 //this initializes the window, first screen of the game(splash screen)
 {
 	design_win_1();
@@ -150,16 +158,129 @@ void Game_window::takedown_win_2(){
 void Game_window::next_2(){
     //removes all elements from win_2
 	takedown_win_2();
+    //set the styles for the second screen
+    design_win_3();
+    //attach the elements to the window
+    build_win_3();
 }
 
 void Game_window::cb_next_2(Address, Address pw){
 	reference_to<Game_window>(pw).next_2();
 }
 
+//---------------------------------------Screen 3 functions-------------------------------------
+// Tyler's code
+void high_score::set_initials(String s)
+{
+    initials = s;
+}
+void high_score::set_score(int p)
+{
+    score = p;
+}
+String high_score::get_initials()
+{
+    return initials;
+}
+int high_score::get_score()
+{
+    return score;
+}
 
+istream& operator>>(istream& is, high_score& h)
+{
+    string str;
+    int a;
+    is >> str >> a;
+    if (!is) return is;
+    h = high_score{str, a};
+    return is;
+}
+void Game_window::read_initials_and_scores(vector<high_score>& s, istream& is)
+{
+    high_score h;
+    
+    while(!is.eof())
+    {
+        if(!is)
+        {
+            return;
+        }
+        else
+        {
+            is >> h;
+            s.push_back(h);
+        }
+    }
+}
+void Game_window::sort_scores(vector<high_score>& s, vector<Text*>& t)
+{
+    for(int j = 0 ; j < 5; j++)
+    {
+        int a = 0;
+        for(int i = 1 ; i < s.size(); i++)
+        {
+            if(s[i].score > s[a].score)
+            {
+                a = i;
+            }
+        }
+        t.push_back(new Text(Point(500,200 + 100*j), s[a].initials + " " + to_string(s[a].score)));
+        s.erase(s.begin() + a);
+    }
+}
 
+//--------------------------------------------------------------------------------------------------------
+//design_win styles the objects for the screen
+void Game_window::design_win_3(){
+    ifstream is{"high_scores.txt"};
+    high_scores.set_font_size(140);
+    high_scores.set_font(Graph_lib::Font::helvetica_bold);
+    high_scores.set_color(Color::blue);
+    read_initials_and_scores(scores, is);
+    sort_scores(scores, initials_and_scores);
+    for(int k = 0; k < initials_and_scores.size(); k++)
+    {
+        initials_and_scores[k]->set_color(Color::blue);
+        initials_and_scores[k]->set_font_size(70);
+        initials_and_scores[k]->set_font(Graph_lib::Font::helvetica_bold);
+        attach(*(initials_and_scores[k]));
+    }
 
+}
+//build_win attaches the objects
+void Game_window::build_win_3(){
+    
+    attach(high_scores);
+    attach(user_initials);
+    attach(next_button_3);
+    attach(button_cover_3);
+    attach(button_text_3);
+}
+//takedown_win will detach all of the objects from the screen
+void Game_window::takedown_win_3(){
+    detach(high_scores);
+    detach(user_initials);
 
+    
+    detach(next_button_3);
+    detach(button_cover_3);
+    detach(button_text_3);
+    
+    
+}
+//-----move to next screen----------
+void Game_window::next_3(){
+    //take old elements off of the screen
+    takedown_win_3();
+    //set the styles for the second screen
+    design_win_3();
+    //attach the elements to the window
+    build_win_3();
+}
 
-
-
+//callback function to next function above^^
+void Game_window::cb_next_3(Address, Address pw){
+    reference_to<Game_window>(pw).next_3();
+    
+}
