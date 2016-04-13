@@ -95,6 +95,7 @@ void Game_window::cb_next_1(Address, Address pw){
 }
 
 //---------------------------------------Screen 2 functions-------------------------------------
+//design_win styles the objects for the screen
 void Game_window::design_win_2(){
 	intro_2.set_color(Color::white);
     intro_2.set_font(FL_TIMES);
@@ -117,6 +118,7 @@ void Game_window::design_win_2(){
     summary5_2.set_font_size(20);
 }
 
+//build_win attaches the objects
 void Game_window::build_win_2(){
 	attach(next_button_2);
 	attach(summary_2);
@@ -130,6 +132,7 @@ void Game_window::build_win_2(){
     attach(button_text_2);
 }
 
+//takedown_win will detach all of the objects from the screen
 void Game_window::takedown_win_2(){
 	detach(summary_2);
 	detach(summary1_2);
@@ -145,6 +148,7 @@ void Game_window::takedown_win_2(){
 }
 
 void Game_window::next_2(){
+    //removes all elements from win_2
 	takedown_win_2();
 }
 
