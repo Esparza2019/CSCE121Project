@@ -78,6 +78,7 @@ public:
     
     Rectangle button_cover_3;
     Text button_text_3;
+	Rectangle backdrop_3;
     
     void design_win_3();//gives the style to the elements in the window
     void build_win_3();
@@ -93,9 +94,6 @@ private:
     Text high_scores;
     Image background;
     
-    
-    
-    
     //void next_button(); // was originally here, make sure to switch all next_button to next_button_3
    
     void read_initials_and_scores(vector<high_score>& s, istream& is);
@@ -104,7 +102,38 @@ private:
     Button next_button_3;
     void next_3();
     static void cb_next_3(Address, Address);
+
+//----------------------------------------------Screen 4-----------------------------------------------------
+
+    Text title_4;
+    Button level_2_button;
+    Button level_3_button;
+    Button level_4_button;
+    Button level_5_button;
+    Button level_6_button;
+    Button level_7_button;
+    Button level_8_button;
+
+    void level_2();
+    void level_3();
+    void level_4();
+    vector<Point> level_5();
+    void level_6();
+    void level_7();
+    void level_8();
+    void next_4();
+    static void cb_level_2(Address, Address);
+    static void cb_level_3(Address, Address);
+    static void cb_level_4(Address, Address);
+    static void cb_level_5(Address, Address);
+    static void cb_level_6(Address, Address);
+    static void cb_level_7(Address, Address);
+    static void cb_level_8(Address, Address);
     
+public: 
+    
+    void build_win_4();
+    void design_win_4();
+    void takedown_win_4();
     
 };
-
