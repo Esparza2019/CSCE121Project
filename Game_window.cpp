@@ -42,14 +42,56 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	backdrop_3{Point(w/2-50, 790), 140, 90},
     
  //--------------------------------Screen 4------------------------------------------------------------
-    title_4(Point(w+60, 250), "Please Select a Difficulty Level"),
-    level_2_button(Point(w/6, h/2), 100, 50, "Level 2", cb_level_2),
-    level_3_button(Point(w*2/6, h/2), 100, 50, "Level 3", cb_level_3),
-    level_4_button(Point(w*3/6, h/2), 100, 50, "Level 4", cb_level_4),
-    level_5_button(Point(w*4/6, h/2), 100, 50, "Level 5", cb_level_5),
-    level_6_button(Point(w/5, h*1/3), 100, 50, "Level 6", cb_level_6),
-    level_7_button(Point(w*2/5, h*1/3), 100, 50, "Level 7", cb_level_7),
-    level_8_button(Point(w*3/5, h*1/3), 100, 50, "Level 8", cb_level_8)
+    title_4(Point(60, 200), "Please Select a Difficulty Level"),
+    level_2_button(Point(w/6, h/2), 150, 75, "Level 2", cb_level_2),
+    level_3_button(Point(w*2/6, h/2), 150, 75, "Level 3", cb_level_3),
+    level_4_button(Point(w*3/6, h/2), 150, 75, "Level 4", cb_level_4),
+    level_5_button(Point(w*4/6, h/2), 150, 75, "Level 5", cb_level_5),
+    level_6_button(Point(w/5, h*1/3+350), 150, 75, "Level 6", cb_level_6),
+    level_7_button(Point(w*2/5, h*1/3+350), 150, 75, "Level 7", cb_level_7),
+    level_8_button(Point(w*3/5, h*1/3+350), 150, 75, "Level 8", cb_level_8),
+	
+//---------------------------------Screen 5----------------------------------------
+
+//points used to calculate score
+	p1(sattelite_1.center()), p2(sattelite_2.center()), p3(sattelite_3.center()), p4(sattelite_4.center()), 
+	p5(sattelite_5.center()), p6(sattelite_6.center()), p7(sattelite_7.center()), p8(sattelite_8.center()),
+	
+	sattelite_1(Point(250, 250), 15),
+	sattelite_2(Point(600,680), 15),
+	sattelite_3(Point(300,400), 15),
+	sattelite_4(Point(220,800), 15),
+	sattelite_5(Point(600,350), 15),
+	sattelite_6(Point(700,825), 15),
+	sattelite_7(Point(550,550), 15),
+	sattelite_8(Point(240,600), 15),
+	
+//these bools are used to notify when to move the sattelite
+	sat_1_pressed{false}, sat_2_pressed{false}, sat_3_pressed{false}, sat_4_pressed{false},
+	sat_5_pressed{false}, sat_6_pressed{false}, sat_7_pressed{false}, sat_8_pressed{false},
+	
+	moves_remaining{50},
+	
+	//north_pressed{false}, south_pressed{false}, east_pressed{false}, west_pressed{false},
+	
+	mercator_map(Point(0,0), "rsz_equirectangular.jpg"),
+
+//buttons for screen 5
+	sattelite_1_button(Point(p1.x-15, p1.y-15), 100, 50, "Sattelite 1\n(Red)", cb_sat_1),
+	sattelite_2_button(Point(1200, 120), 100, 50, "Sattelite 2\n(Blue)", cb_sat_2),
+	sattelite_3_button(Point(1400, 120), 100, 50, "Sattelite 3\n(Green)", cb_sat_3),
+	sattelite_4_button(Point(1000, 250), 100, 50, "Sattelite 4\n(Yellow)", cb_sat_4),
+	sattelite_5_button(Point(1200, 250), 100, 50, "Sattelite 5\n(Cyan)", cb_sat_5),
+	sattelite_6_button(Point(1400, 250), 100, 50, "Sattelite 6\n(White)", cb_sat_6),
+	sattelite_7_button(Point(1100, 400), 100, 50, "Sattelite 7\n(Black)", cb_sat_7),
+	sattelite_8_button(Point(1325, 400), 100, 50, "Sattelite 8\n(Magenta)", cb_sat_8),
+	
+	north_button(Point(1200, 600), 100, 50, "Move North", cb_north),
+	south_button(Point(1200, 700), 100, 50, "Move South", cb_south),
+	east_button(Point(1250, 650), 100, 50, "Move East", cb_east),
+	west_button(Point(1150, 650), 100, 50, "Move West", cb_west)
+	
+
     
 //----------------------------------------Screen 1 Functions-------------------------------------------------------
 //this initializes the window, first screen of the game(splash screen)
@@ -298,8 +340,12 @@ void Game_window::cb_next_3(Address, Address pw){
 //-------------------------------------------------Screen 4 Functions---------------------------------------------
 
 void Game_window::level_2(){
-    vector<Point>sattelites(2);
     next_4();
+	design_sattelites();
+	attach(sattelite_1);
+	attach(sattelite_2);
+	attach(sattelite_1_button);
+	attach(sattelite_2_button);
 }
 
 void Game_window::cb_level_2(Address, Address pw){
@@ -307,8 +353,15 @@ void Game_window::cb_level_2(Address, Address pw){
 }
 
 void Game_window::level_3(){
-    vector<Point>sattelites(3);
     next_4();
+	design_sattelites();
+	attach(sattelite_1);
+	attach(sattelite_2);
+	attach(sattelite_3);
+	attach(sattelite_1_button);
+	attach(sattelite_2_button);
+	attach(sattelite_3_button);
+
 }
 
 void Game_window::cb_level_3(Address, Address pw){
@@ -316,18 +369,35 @@ void Game_window::cb_level_3(Address, Address pw){
 }
 
 void Game_window::level_4(){
-    vector<Point>sattelites(4);
     next_4();
+	design_sattelites();
+	attach(sattelite_1);
+	attach(sattelite_2);
+	attach(sattelite_3);
+	attach(sattelite_4);
+	attach(sattelite_1_button);
+	attach(sattelite_2_button);
+	attach(sattelite_3_button);
+	attach(sattelite_4_button);
 }
 
 void Game_window::cb_level_4(Address, Address pw){
     reference_to<Game_window>(pw).level_4();
 }
 
-vector<Point> Game_window::level_5(){
-    vector<Point>sattelites(5);
+void Game_window::level_5(){
     next_4();
-	return sattelites;
+	design_sattelites();
+	attach(sattelite_1);
+	attach(sattelite_2);
+	attach(sattelite_3);
+	attach(sattelite_4);
+	attach(sattelite_5);
+	attach(sattelite_1_button);
+	attach(sattelite_2_button);
+	attach(sattelite_3_button);
+	attach(sattelite_4_button);
+	attach(sattelite_5_button);
 }
 
 void Game_window::cb_level_5(Address, Address pw){
@@ -335,8 +405,20 @@ void Game_window::cb_level_5(Address, Address pw){
 }
 
 void Game_window::level_6(){
-    vector<Point>sattelites(6);
     next_4();
+	design_sattelites();
+	attach(sattelite_1);
+	attach(sattelite_2);
+	attach(sattelite_3);
+	attach(sattelite_4);
+	attach(sattelite_5);
+	attach(sattelite_6);
+	attach(sattelite_1_button);
+	attach(sattelite_2_button);
+	attach(sattelite_3_button);
+	attach(sattelite_4_button);
+	attach(sattelite_5_button);
+	attach(sattelite_6_button);
 }
 
 void Game_window::cb_level_6(Address, Address pw){
@@ -344,8 +426,22 @@ void Game_window::cb_level_6(Address, Address pw){
 }
 
 void Game_window::level_7(){
-    vector<Point>sattelites(7);
     next_4();
+	design_sattelites();
+	attach(sattelite_1);
+	attach(sattelite_2);
+	attach(sattelite_3);
+	attach(sattelite_4);
+	attach(sattelite_5);
+	attach(sattelite_6);
+	attach(sattelite_7);
+	attach(sattelite_1_button);
+	attach(sattelite_2_button);
+	attach(sattelite_3_button);
+	attach(sattelite_4_button);
+	attach(sattelite_5_button);
+	attach(sattelite_6_button);
+	attach(sattelite_7_button);
 }
 
 void Game_window::cb_level_7(Address, Address pw){
@@ -353,8 +449,24 @@ void Game_window::cb_level_7(Address, Address pw){
 }
 
 void Game_window::level_8(){
-    vector<Point>sattelites(8);
     next_4();
+	design_sattelites();
+	attach(sattelite_1);
+	attach(sattelite_2);
+	attach(sattelite_3);
+	attach(sattelite_4);
+	attach(sattelite_5);
+	attach(sattelite_6);
+	attach(sattelite_7);
+	attach(sattelite_8);
+	attach(sattelite_1_button);
+	attach(sattelite_2_button);
+	attach(sattelite_3_button);
+	attach(sattelite_4_button);
+	attach(sattelite_5_button);
+	attach(sattelite_6_button);
+	attach(sattelite_7_button);
+	attach(sattelite_8_button);
 }
 
 void Game_window::cb_level_8(Address, Address pw){
@@ -363,7 +475,8 @@ void Game_window::cb_level_8(Address, Address pw){
 
 
 void Game_window::design_win_4(){
-    title_4.set_font_size(150);
+    title_4.set_font_size(100);
+	title_4.set_color(Color::red);
 }
 void Game_window::build_win_4(){
     attach(my_background_1);
@@ -390,5 +503,214 @@ void Game_window::takedown_win_4(){
 
 void Game_window::next_4(){
     takedown_win_4();
-    hide();
+	design_win_5();
+	build_win_5();
+
 }
+
+//----------------------------------Screen 5 Functions---------------------------------------------
+
+void Game_window::design_sattelites(){
+	sattelite_1.set_fill_color(Color::red);
+	sattelite_2.set_fill_color(Color::blue);
+	sattelite_3.set_fill_color(Color::green);
+	sattelite_4.set_fill_color(Color::yellow);
+	sattelite_5.set_fill_color(Color::cyan);
+	sattelite_6.set_fill_color(Color::white);
+	sattelite_7.set_fill_color(Color::black);
+	sattelite_8.set_fill_color(Color::magenta);
+}
+
+void Game_window::design_win_5(){
+}
+
+void Game_window::build_win_5(){
+	attach(mercator_map);
+	attach(north_button);
+	attach(south_button);
+	attach(east_button);
+	attach(west_button);
+}
+
+//sattelite button functions
+
+void Game_window::sattelite_1_chosen(){
+	sat_1_pressed=true;
+	sat_2_pressed=false;
+	sat_3_pressed=false;
+	sat_4_pressed=false;
+	sat_5_pressed=false;
+	sat_6_pressed=false;
+	sat_7_pressed=false;
+	sat_8_pressed=false;
+}
+
+void Game_window::sattelite_2_chosen(){
+	sat_1_pressed=false;
+	sat_2_pressed=true;
+	sat_3_pressed=false;
+	sat_4_pressed=false;
+	sat_5_pressed=false;
+	sat_6_pressed=false;
+	sat_7_pressed=false;
+	sat_8_pressed=false;
+}
+
+void Game_window::sattelite_3_chosen(){
+	sat_1_pressed=false;
+	sat_2_pressed=false;
+	sat_3_pressed=true;
+	sat_4_pressed=false;
+	sat_5_pressed=false;
+	sat_6_pressed=false;
+	sat_7_pressed=false;
+	sat_8_pressed=false;
+}
+
+void Game_window::sattelite_4_chosen(){
+	sat_1_pressed=false;
+	sat_2_pressed=false;
+	sat_3_pressed=false;
+	sat_4_pressed=true;
+	sat_5_pressed=false;
+	sat_6_pressed=false;
+	sat_7_pressed=false;
+	sat_8_pressed=false;
+}
+
+void Game_window::sattelite_5_chosen(){
+	sat_1_pressed=false;
+	sat_2_pressed=false;
+	sat_3_pressed=false;
+	sat_4_pressed=false;
+	sat_5_pressed=true;
+	sat_6_pressed=false;
+	sat_7_pressed=false;
+	sat_8_pressed=false;
+}
+
+void Game_window::sattelite_6_chosen(){
+	sat_1_pressed=false;
+	sat_2_pressed=false;
+	sat_3_pressed=false;
+	sat_4_pressed=false;
+	sat_5_pressed=false;
+	sat_6_pressed=true;
+	sat_7_pressed=false;
+	sat_8_pressed=false;
+}
+
+void Game_window::sattelite_7_chosen(){
+	sat_1_pressed=false;
+	sat_2_pressed=false;
+	sat_3_pressed=false;
+	sat_4_pressed=false;
+	sat_5_pressed=false;
+	sat_6_pressed=false;
+	sat_7_pressed=true;
+	sat_8_pressed=false;
+}
+
+void Game_window::sattelite_8_chosen(){
+	sat_1_pressed=false;
+	sat_2_pressed=false;
+	sat_3_pressed=false;
+	sat_4_pressed=false;
+	sat_5_pressed=false;
+	sat_6_pressed=false;
+	sat_7_pressed=false;
+	sat_8_pressed=true;
+}
+
+void Game_window::cb_sat_1(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_1_chosen();
+}
+void Game_window::cb_sat_2(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_2_chosen();
+}
+void Game_window::cb_sat_3(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_3_chosen();
+}
+void Game_window::cb_sat_4(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_4_chosen();
+}
+void Game_window::cb_sat_5(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_5_chosen();
+}
+void Game_window::cb_sat_6(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_6_chosen();
+}
+void Game_window::cb_sat_7(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_7_chosen();
+}
+void Game_window::cb_sat_8(Address, Address pw){
+	reference_to<Game_window>(pw).sattelite_8_chosen();
+}
+
+//NSEW button functions
+
+void Game_window::move_north(){
+	
+	redraw();
+}
+void Game_window::move_south(){
+	redraw();
+	
+	
+}
+void Game_window::move_east(){
+	if (sat_1_pressed==true){
+		shift_right(sattelite_1, sattelite_1_button);
+		p1 = sattelite_1.center();
+	}
+//	else if(sat_2_pressed==true)
+//		shift_right(sattelite_2);
+//	else if(sat_3_pressed==true)
+//		shift_right(sattelite_3);
+//	else if(sat_4_pressed==true)
+//		shift_right(sattelite_4);
+//	else if(sat_5_pressed==true)
+//		shift_right(sattelite_5);
+//	else if(sat_6_pressed==true)
+//		shift_right(sattelite_6);
+//	else if(sat_7_pressed==true)
+//		shift_right(sattelite_7);
+//	else if(sat_8_pressed==true)
+//		shift_right(sattelite_8);
+	moves_remaining-=1;
+	redraw();
+}
+void Game_window::move_west(){
+	
+}
+//callbacks
+void Game_window::cb_north(Address, Address pw){
+	reference_to<Game_window>(pw).move_north();
+}
+void Game_window::cb_south(Address, Address pw){
+	reference_to<Game_window>(pw).move_south();
+}
+void Game_window::cb_east(Address, Address pw){
+	reference_to<Game_window>(pw).move_east();
+}
+void Game_window::cb_west(Address, Address pw){
+	reference_to<Game_window>(pw).move_west();
+}
+
+void Game_window::shift_right(Shape& c, Widget& w){
+	c.move(10,0);
+	w.move(10,0);
+}
+
+
+//void Game_window::reset_sat_bools(){
+	//sat_1_pressed=false;
+	//sat_2_pressed=false;
+//	sat_3_pressed=false;
+//	sat_4_pressed=false;
+//	sat_5_pressed=false;
+//	sat_6_pressed=false;
+//	sat_7_pressed=false;
+//	sat_8_pressed=false;
+//}
+

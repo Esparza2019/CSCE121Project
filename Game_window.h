@@ -117,7 +117,7 @@ private:
     void level_2();
     void level_3();
     void level_4();
-    vector<Point> level_5();
+    void level_5();
     void level_6();
     void level_7();
     void level_8();
@@ -135,5 +135,92 @@ public:
     void build_win_4();
     void design_win_4();
     void takedown_win_4();
-    
+	
+//----------------------------------------Screen 5---------------------------------
+
+	Circle sattelite_1;
+	Circle sattelite_2;
+	Circle sattelite_3;
+	Circle sattelite_4;
+	Circle sattelite_5;
+	Circle sattelite_6;
+	Circle sattelite_7;
+	Circle sattelite_8;
+	
+	Point p1;
+	Point p2;
+	Point p3;
+	Point p4;
+	Point p5;
+	Point p6;
+	Point p7;
+	Point p8;
+	
+	Image mercator_map;
+	
+	Button sattelite_1_button;
+	Button sattelite_2_button;
+	Button sattelite_3_button;
+	Button sattelite_4_button;
+	Button sattelite_5_button;
+	Button sattelite_6_button;
+	Button sattelite_7_button;
+	Button sattelite_8_button;
+	
+	void reset_sat_bools();
+	
+	bool sat_1_pressed;
+	bool sat_2_pressed;
+	bool sat_3_pressed;
+	bool sat_4_pressed;
+	bool sat_5_pressed;
+	bool sat_6_pressed;
+	bool sat_7_pressed;
+	bool sat_8_pressed;
+	
+	Button north_button;
+	Button south_button;
+	Button east_button;
+	Button west_button;
+	
+//	bool north_pressed;
+//	bool south_pressed;
+//	bool east_pressed;
+//	bool west_pressed;
+
+	void sattelite_1_chosen();
+	void sattelite_2_chosen();
+	void sattelite_3_chosen();
+	void sattelite_4_chosen();
+	void sattelite_5_chosen();
+	void sattelite_6_chosen();
+	void sattelite_7_chosen();
+	void sattelite_8_chosen();
+	
+	void move_north();
+	void move_south();
+	void move_east();
+	void move_west();
+	
+	void shift_right(Shape& c, Widget& w);
+//	void shift_left();
+	int moves_remaining;
+	
+	static void cb_sat_1(Address, Address);
+	static void cb_sat_2(Address, Address);
+	static void cb_sat_3(Address, Address);
+	static void cb_sat_4(Address, Address);
+	static void cb_sat_5(Address, Address);
+	static void cb_sat_6(Address, Address);
+	static void cb_sat_7(Address, Address);
+	static void cb_sat_8(Address, Address);
+	
+	static void cb_north(Address, Address);
+	static void cb_south(Address, Address);
+	static void cb_east(Address, Address);
+	static void cb_west(Address, Address);
+
+	void design_sattelites();
+	void design_win_5();
+	void build_win_5();
 };
