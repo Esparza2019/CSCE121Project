@@ -39,8 +39,10 @@ void Window::init()
 void Window::draw()
 {
     Fl_Window::draw();
+	for (unsigned int i=0; i<widgets.size(); ++i) widgets[i]->draw();
     for (unsigned int i=0; i<shapes.size(); ++i) shapes[i]->draw();
-   
+    
+    
 }
 
 //------------------------------------------------------------------------------
@@ -49,6 +51,7 @@ void Window::attach(Widget& w)
 {
     begin();         // FTLK: begin attaching new Fl_Wigets to this window
     w.attach(*this); // let the Widget create its Fl_Wigits
+    widgets.push_back(&w);
     end();           // FTLK: stop attaching new Fl_Wigets to this window
 }
 
@@ -57,6 +60,9 @@ void Window::attach(Widget& w)
 void Window::detach(Widget& b)
 {
     b.hide();
+    for (vector<Widget*>::size_type i = widgets.size(); 0<i; --i)    
+        if (widgets[i-1]==&b)
+            widgets.erase(widgets.begin()+(i-1));
 }
 
 //------------------------------------------------------------------------------
