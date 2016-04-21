@@ -202,8 +202,13 @@ public:
 	void move_east();
 	void move_west();
 	
+	void wraparound_check(Point& p, Circle& c, Widget& w);
+	
+	void shift_up(Shape& c, Widget& w);
+	void shift_down(Shape& c, Widget& w);
 	void shift_right(Shape& c, Widget& w);
-//	void shift_left();
+	void shift_left(Shape& c, Widget& w);
+	
 	int moves_remaining;
 	
 	static void cb_sat_1(Address, Address);

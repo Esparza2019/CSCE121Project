@@ -3,7 +3,7 @@
 
 int main()
 try {
-	Game_window win {Point{50,50},1500,900,"Wifi Hero"};
+	Game_window win {Point{50,50},1350,900,"Wifi Hero"};
 	
 		
 	return gui_main();
