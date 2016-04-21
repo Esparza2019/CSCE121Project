@@ -17,11 +17,11 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 //------------------------------Screen 2----------------------------------------------------
 	intro_2{Point(500,150),"Wifi Hero"},
 	summary_2{Point(200,300), "No Service."},
-	summary1_2{Point(200,400),"Today all connectivity was lost, our world's top minds are working hard to find a solution."},
-	summary2_2{Point(200,500),"Normally this might've been an easy task, but without any communication its all up to you."},
-    summary3_2{Point(200,600),"Our engineers have repaired some satelites and you need to place them and cover as many people as possible."},
-    summary4_2{Point(200,700),"Click on any satellite to select it, and move it by pressing the movement buttons."},
-    summary5_2{Point(200,800),"The game ends when no moves are left."},
+	summary1_2{Point(200,350),"Today all connectivity was lost, our world's top minds are working hard to find a solution."},
+	summary2_2{Point(200,400),"Normally this might've been an easy task, but without any communication its all up to you."},
+    summary3_2{Point(200,450),"Our engineers have repaired some satelites and you need to place them and cover as many people as possible."},
+    summary4_2{Point(200,500),"Click on any satellite to select it, and move it by pressing the movement buttons."},
+    summary5_2{Point(200,550),"The game ends when no moves are left."},
 	
 	next_button_2(Point(x_max()-800, y_max()-200), 100, 50, "Continue", cb_next_2),
 	button_cover_2(Point(x_max()-800, y_max()-200), 100, 50),
@@ -32,7 +32,7 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 
 
     high_scores(Point(w/10, h/8), "HIGH SCORES"),
-    background(Point(0,0), "project_background.gif"),
+    background(Point(0,0), "background-bicubic.gif"),
     user_initials(Point{w/2-35, 800}, 70, 20, "Enter Initials: "),
 
     next_button_3(Point(x_max()-800, y_max()-200), 100, 50, "Continue", cb_next_3),
@@ -50,6 +50,24 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
     level_6_button(Point(w/5, h*1/3+350), 150, 75, "Level 6", cb_level_6),
     level_7_button(Point(w*2/5, h*1/3+350), 150, 75, "Level 7", cb_level_7),
     level_8_button(Point(w*3/5, h*1/3+350), 150, 75, "Level 8", cb_level_8),
+
+    level_2_button_cover(Point(w/6,h/2), 150, 75),
+    level_3_button_cover(Point(w*2/6, h/2), 150, 75),
+    level_4_button_cover(Point(w*3/6, h/2), 150, 75),
+    level_5_button_cover(Point(w*4/6,h/2), 150, 75),
+    level_6_button_cover(Point(w/5, h*1/3+350), 150, 75),
+    level_7_button_cover(Point(w*2/5, h*1/3+350), 150, 75),
+    level_8_button_cover(Point(w*3/5, h*1/3+350), 150, 75),
+
+    level_2_button_text(Point(w/6+50,h/2+40), "Level 2"),
+    level_3_button_text(Point(w*2/6+50, h/2+40), "Level 3"),
+    level_4_button_text(Point(w*3/6+50, h/2+40), "Level 4"),
+    level_5_button_text(Point(w*4/6+50,h/2+40), "Level 5"),
+    level_6_button_text(Point(w/5+50, h*1/3+350+40), "Level 6"),
+    level_7_button_text(Point(w*2/5+50, h*1/3+350+40), "Level 7"),
+    level_8_button_text(Point(w*3/5+50, h*1/3+350+40), "Level 8"),
+
+
 	
 //---------------------------------Screen 5----------------------------------------
 
@@ -111,10 +129,10 @@ void Game_window::design_win_1(){
 	game_name_1.set_color(Color::red);
 	team_name_1.set_font_size(100);
 	team_name_1.set_color(Color::white);
-	names_1.set_font_size(70);
+	names_1.set_font_size(60);
 	names_1.set_color(Color::white);
-	text_backdrop_1.set_fill_color(Color::black);
-	backdrop_outline_1.set_fill_color(Color::white);
+	//text_backdrop_1.set_fill_color(Color::black);
+	//backdrop_outline_1.set_fill_color(Color::white);
 }
 
 //build_win attaches the objects
@@ -123,8 +141,8 @@ void Game_window::build_win_1(){
 	attach(next_button_1);
 	attach(button_cover_1);
 	attach(button_text_1);
-	attach(backdrop_outline_1);
-	attach(text_backdrop_1);
+	//attach(backdrop_outline_1);
+	//attach(text_backdrop_1);
 	attach(game_name_1);
 	attach(team_name_1);
 	attach(names_1);
@@ -135,8 +153,8 @@ void Game_window::takedown_win_1(){
 	detach(next_button_1);
 	detach(button_cover_1);
 	detach(button_text_1);
-	detach(backdrop_outline_1);
-	detach(text_backdrop_1);
+	//detach(backdrop_outline_1);
+	//detach(text_backdrop_1);
 	detach(game_name_1);
 	detach(team_name_1);
 	detach(names_1);
@@ -160,9 +178,9 @@ void Game_window::cb_next_1(Address, Address pw){
 //---------------------------------------Screen 2 functions-------------------------------------
 //design_win styles the objects for the screen
 void Game_window::design_win_2(){
-	intro_2.set_color(Color::white);
-    intro_2.set_font(FL_TIMES);
-    intro_2.set_font_size(100);
+	//intro_2.set_color(Color::white);
+    //intro_2.set_font(FL_TIMES);
+    //intro_2.set_font_size(100);
 	
 	button_cover_2.set_fill_color(Color::red);
 	
@@ -190,7 +208,7 @@ void Game_window::build_win_2(){
 	attach(summary3_2);
 	attach(summary4_2);
 	attach(summary5_2);
-	attach(intro_2);
+	//attach(intro_2);
 	attach(button_cover_2);
     attach(button_text_2);
 }
@@ -203,7 +221,7 @@ void Game_window::takedown_win_2(){
 	detach(summary3_2);
 	detach(summary4_2);
 	detach(summary5_2);
-	detach(intro_2);
+	//detach(intro_2);
     detach(button_text_2);
     detach(button_cover_2);
     detach(next_button_2);
@@ -310,8 +328,8 @@ void Game_window::build_win_3(){
     attach(high_scores);
     attach(user_initials);
     attach(next_button_3);
-    attach(button_cover_3);
-    attach(button_text_3);
+    //attach(button_cover_3);
+   // attach(button_text_3);
 	//attach(backdrop_3);
 }
 //takedown_win will detach all of the objects from the screen
@@ -319,8 +337,8 @@ void Game_window::takedown_win_3(){
     detach(high_scores);
     detach(user_initials);
     detach(next_button_3);
-    detach(button_cover_3);
-    detach(button_text_3);    
+    ///detach(button_cover_3);
+    //detach(button_text_3);
 }
 //-----move to next screen----------
 void Game_window::next_3(){
@@ -355,12 +373,14 @@ void Game_window::cb_level_2(Address, Address pw){
 void Game_window::level_3(){
     next_4();
 	design_sattelites();
-	attach(sattelite_1);
-	attach(sattelite_2);
-	attach(sattelite_3);
+	
 	attach(sattelite_1_button);
 	attach(sattelite_2_button);
 	attach(sattelite_3_button);
+    attach(sattelite_1);
+    attach(sattelite_2);
+    attach(sattelite_3);
+   
 
 }
 
@@ -475,8 +495,25 @@ void Game_window::cb_level_8(Address, Address pw){
 
 
 void Game_window::design_win_4(){
-    title_4.set_font_size(100);
+    title_4.set_font_size(80);
 	title_4.set_color(Color::red);
+    
+    level_2_button_cover.set_fill_color(Color::red);
+    level_3_button_cover.set_fill_color(Color::red);
+    level_4_button_cover.set_fill_color(Color::red);
+    level_5_button_cover.set_fill_color(Color::red);
+    level_6_button_cover.set_fill_color(Color::red);
+    level_7_button_cover.set_fill_color(Color::red);
+    level_8_button_cover.set_fill_color(Color::red);
+    
+    /*level_2_button_text.set_color(white);
+    level_3_button_text.set_color(white);
+    level_4_button_text.set_color(white);
+    level_5_button_text.set_color(white);
+    level_6_button_text.set_color(white);
+    level_7_button_text.set_color(white);
+    level_8_button_text.set_color(white);*/
+  
 }
 void Game_window::build_win_4(){
     attach(my_background_1);
@@ -488,6 +525,23 @@ void Game_window::build_win_4(){
     attach(level_6_button);
     attach(level_7_button);
     attach(level_8_button);
+    
+    attach(level_2_button_cover);
+    attach(level_3_button_cover);
+    attach(level_4_button_cover);
+    attach(level_5_button_cover);
+    attach(level_6_button_cover);
+    attach(level_7_button_cover);
+    attach(level_8_button_cover);
+    
+    attach(level_2_button_text);
+    attach(level_3_button_text);
+    attach(level_4_button_text);
+    attach(level_5_button_text);
+    attach(level_6_button_text);
+    attach(level_7_button_text);
+    attach(level_8_button_text);
+   
 }
 
 void Game_window::takedown_win_4(){
@@ -499,6 +553,23 @@ void Game_window::takedown_win_4(){
     detach(level_6_button);
     detach(level_7_button);
     detach(level_8_button);
+    detach(my_background_1);
+    
+    detach(level_2_button_cover);
+    detach(level_3_button_cover);
+    detach(level_4_button_cover);
+    detach(level_5_button_cover);
+    detach(level_6_button_cover);
+    detach(level_7_button_cover);
+    detach(level_8_button_cover);
+    
+    detach(level_2_button_text);
+    detach(level_3_button_text);
+    detach(level_4_button_text);
+    detach(level_5_button_text);
+    detach(level_6_button_text);
+    detach(level_7_button_text);
+    detach(level_8_button_text);
 }
 
 void Game_window::next_4(){

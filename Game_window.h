@@ -113,6 +113,22 @@ private:
     Button level_6_button;
     Button level_7_button;
     Button level_8_button;
+    
+    Rectangle level_2_button_cover;
+    Rectangle level_3_button_cover;
+    Rectangle level_4_button_cover;
+    Rectangle level_5_button_cover;
+    Rectangle level_6_button_cover;
+    Rectangle level_7_button_cover;
+    Rectangle level_8_button_cover;
+    
+    Text level_2_button_text;
+    Text level_3_button_text;
+    Text level_4_button_text;
+    Text level_5_button_text;
+    Text level_6_button_text;
+    Text level_7_button_text;
+    Text level_8_button_text;
 
     void level_2();
     void level_3();

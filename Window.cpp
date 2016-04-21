@@ -40,6 +40,7 @@ void Window::draw()
 {
     Fl_Window::draw();
     for (unsigned int i=0; i<shapes.size(); ++i) shapes[i]->draw();
+   
 }
 
 //------------------------------------------------------------------------------
