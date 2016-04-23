@@ -1,3 +1,4 @@
+
 #include "Simple_window.h"
 #include "Window.h"
 #include "Graph.h"
@@ -242,9 +243,21 @@ public:
 	static void cb_south(Address, Address);
 	static void cb_east(Address, Address);
 	static void cb_west(Address, Address);
-
+	
+	Rectangle button_cover_north;
+	Rectangle button_cover_south;
+	Rectangle button_cover_east;
+	Rectangle button_cover_west;
+	
+	Text button_text_north;
+	Text button_text_south;
+	Text button_text_east;
+	Text button_text_west;
+	
 	void design_sattelites();
 	void design_win_5();
 	void build_win_5();
     void remaining();
+
 };
+

@@ -5,9 +5,9 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	:Window{xy,w,h,title},
 //-----------------------------Screen 1-----------------------------------------------
 	my_background_1{Point(0,0), "background-bicubic.gif"},
-	next_button_1(Point (x_max()-800, y_max()-200), 100, 50, "Continue", cb_next_1),
-	button_cover_1(Point(x_max()-800, y_max()-200), 100, 50),
-	button_text_1(Point(x_max()-796, y_max()-165), "Continue"),
+	next_button_1(Point (w/2-50, y_max()-200), 100, 50, "Continue", cb_next_1),
+	button_cover_1(Point(w/2-50, y_max()-200), 100, 50),
+	button_text_1(Point(w/2-47, y_max()-165), "Continue"),
 	game_name_1(Point(400, 250), "Wifi Hero"),
 	team_name_1(Point(180, 400), "Designed by Team 11:"),
 	names_1(Point(50, 550), "Justin DeSalvo, Tyler Fenske, Daniel Esparza"),
@@ -23,9 +23,9 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
     summary4_2{Point(200,500),"Click on any satellite to select it, and move it by pressing the movement buttons."},
     summary5_2{Point(200,550),"The game ends when no moves are left."},
 	
-	next_button_2(Point(x_max()-800, y_max()-200), 100, 50, "Continue", cb_next_2),
-	button_cover_2(Point(x_max()-800, y_max()-200), 100, 50),
-    button_text_2(Point(x_max()-796, y_max()-165), "Continue"),
+	next_button_2(Point(w/2-50, y_max()-200), 100, 50, "Continue", cb_next_2),
+	button_cover_2(Point(w/2-50, y_max()-200), 100, 50),
+    button_text_2(Point(w/2-47, y_max()-165), "Continue"),
 	
 	
 //-----------------------------Screen 3---------------------------------------------------------
@@ -35,9 +35,9 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
     background(Point(0,0), "background-bicubic.gif"),
     user_initials(Point{w/2-35, 800}, 70, 20, "Enter Initials: "),
 
-    next_button_3(Point(x_max()-800, y_max()-200), 100, 50, "Continue", cb_next_3),
-    button_cover_3(Point(x_max()-800, y_max()-200), 100, 50),
-    button_text_3(Point(x_max()-796, y_max()-165), "Continue"),
+    next_button_3(Point(w/2-50, y_max()-200), 100, 50, "Continue", cb_next_3),
+    button_cover_3(Point(w/2-50, y_max()-200), 100, 50),
+    button_text_3(Point(w/2-30, y_max()-165), "Continue"),
 	
 	backdrop_3{Point(w/2-50, 790), 140, 90},
     
@@ -108,8 +108,17 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	north_button(Point(625, 730), 100, 50, "Move North", cb_north),
 	south_button(Point(625, 830), 100, 50, "Move South", cb_south),
 	east_button(Point(675, 780), 100, 50, "Move East", cb_east),
-	west_button(Point(575, 780), 100, 50, "Move West", cb_west)
+	west_button(Point(575, 780), 100, 50, "Move West", cb_west),
 	
+	button_cover_north(Point(625, 730), 100, 50),
+	button_cover_south(Point(625, 830), 100, 50),
+	button_cover_east(Point(675, 780), 100, 50),
+	button_cover_west(Point(575, 780), 100, 50),
+	
+	button_text_north(Point(635, 765), "Move North"),
+	button_text_south(Point(635, 865), "Move South"),
+	button_text_east(Point(685, 815), "Move East"),
+	button_text_west(Point(585, 815), "Move West")
 
     
 //----------------------------------------Screen 1 Functions-------------------------------------------------------
@@ -184,6 +193,7 @@ void Game_window::design_win_2(){
     //intro_2.set_font_size(100);
 	
 	button_cover_2.set_fill_color(Color::red);
+	button_text_2.set_font_size(24);
 	
     summary_2.set_color(Color::white);
     summary1_2.set_color(Color::white);
@@ -602,6 +612,14 @@ void Game_window::remaining(){
 }
 
 void Game_window::design_win_5(){
+	button_cover_north.set_fill_color(Color::red);
+	button_cover_south.set_fill_color(Color::red);
+	button_cover_east.set_fill_color(Color::red);
+	button_cover_west.set_fill_color(Color::red);
+	button_text_north.set_font_size(16);
+	button_text_south.set_font_size(16);
+	button_text_east.set_font_size(16);
+	button_text_west.set_font_size(16);
 }
 
 void Game_window::build_win_5(){
@@ -610,7 +628,18 @@ void Game_window::build_win_5(){
 	attach(south_button);
 	attach(east_button);
 	attach(west_button);
+
+	attach(button_cover_north);
+	attach(button_cover_south);
+	attach(button_cover_east);
+	attach(button_cover_west);
+	attach(button_text_north);
+	attach(button_text_south);
+	attach(button_text_east);
+	attach(button_text_west);
     attach(moves_remaining_out);
+
+
 }
 
 //sattelite button functions
@@ -960,4 +989,3 @@ void Game_window::wraparound_check(Point& p, Circle& c, Widget & w){
 //	sat_7_pressed=false;
 //	sat_8_pressed=false;
 //}
-
