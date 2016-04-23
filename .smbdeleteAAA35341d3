@@ -25,7 +25,6 @@ struct high_score
     int get_score();
 };
 
-
 struct Game_window : Graph_lib::Window{
 	Game_window(Point xy, int w, int h, const string& title);
 	
@@ -246,5 +245,4 @@ public:
 	void design_sattelites();
 	void design_win_5();
 	void build_win_5();
-    void remaining();
 };

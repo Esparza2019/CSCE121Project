@@ -89,7 +89,7 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	sat_5_pressed{false}, sat_6_pressed{false}, sat_7_pressed{false}, sat_8_pressed{false},
 	
 	moves_remaining{50},
-    moves_remaining_out{Point(425,730),100,20,"Moves Remaining"},
+moves_remaining_out{,
 	
 	//north_pressed{false}, south_pressed{false}, east_pressed{false}, west_pressed{false},
 	
@@ -582,7 +582,6 @@ void Game_window::next_4(){
 
 //----------------------------------Screen 5 Functions---------------------------------------------
 
-
 void Game_window::design_sattelites(){
 	sattelite_1.set_fill_color(Color::red);
 	sattelite_2.set_fill_color(Color::blue);
@@ -594,13 +593,6 @@ void Game_window::design_sattelites(){
 	sattelite_8.set_fill_color(Color::magenta);
 }
 
-// Updates the out_box that displays the remaining amount of moves.
-void Game_window::remaining(){
-    ostringstream ss;
-    ss <<'('<<moves_remaining <<')';
-    moves_remaining_out.put(ss.str());
-}
-
 void Game_window::design_win_5(){
 }
 
@@ -610,7 +602,6 @@ void Game_window::build_win_5(){
 	attach(south_button);
 	attach(east_button);
 	attach(west_button);
-    attach(moves_remaining_out);
 }
 
 //sattelite button functions
@@ -756,7 +747,6 @@ void Game_window::move_north(){
 		shift_up(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
 	redraw();
 }
 void Game_window::move_south(){
@@ -785,7 +775,6 @@ void Game_window::move_south(){
 		shift_down(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
 	redraw();
 }
 void Game_window::move_east(){
@@ -814,7 +803,6 @@ void Game_window::move_east(){
 		shift_right(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
 	redraw();
 }
 
@@ -844,7 +832,6 @@ void Game_window::move_west(){
 		shift_left(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
 	redraw();
 }
 //callbacks
