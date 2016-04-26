@@ -165,8 +165,8 @@ void Game_window::build_win_1(){
 	attach(next_button_1);
 	attach(button_cover_1);
 	attach(button_text_1);
-	//attach(backdrop_outline_1);
-	//attach(text_backdrop_1);
+	attach(backdrop_outline_1);
+	attach(text_backdrop_1);
 	attach(game_name_1);
 	attach(team_name_1);
 	attach(names_1);
@@ -177,8 +177,8 @@ void Game_window::takedown_win_1(){
 	detach(next_button_1);
 	detach(button_cover_1);
 	detach(button_text_1);
-	//detach(backdrop_outline_1);
-	//detach(text_backdrop_1);
+	detach(backdrop_outline_1);
+	detach(text_backdrop_1);
 	detach(game_name_1);
 	detach(team_name_1);
 	detach(names_1);
@@ -1004,11 +1004,23 @@ void Game_window::wraparound_check(Point& p, Circle& c, Widget & w){
 	else if (p.x<0){
 		c.move(1350, 0); w.move(1350, 0);
 	}
-	else if (p.y>680){
-		c.move(0, -680); w.move(0, -680);
+	else if (p.y>680 && p.x<x_max()/2){
+		c.move(p.y-680,680-p.y); w.move(p.y-680,680-p.y);
 	}
-	else if (p.y<0){
-		c.move(0, 680); w.move(0, 680);
+	else if (p.y>680 && p.x>x_max()/2){
+		c.move(680-p.y,680-p.y); w.move(680-p.y, 680-p.y);
+	}
+	else if (p.y==680 && p.x==x_max()/2){
+		c.move(0,0); w.move(0,0);
+	}
+	else if (p.y<0 && p.x<x_max()/2){		
+		c.move(-p.y,-p.y); w.move(-p.y,-p.y);
+	}
+	else if (p.y<0 && p.x>x_max()/2){
+		c.move(p.y,-p.y); w.move(p.y,-p.y);
+	}
+	else if (p.y==0 && p.x==x_max()/2){
+		c.move(0,0); w.move(0,0);
 	}
 }
 
