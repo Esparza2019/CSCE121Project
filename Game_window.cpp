@@ -165,8 +165,8 @@ void Game_window::build_win_1(){
 	attach(next_button_1);
 	attach(button_cover_1);
 	attach(button_text_1);
-	attach(backdrop_outline_1);
-	attach(text_backdrop_1);
+	//attach(backdrop_outline_1);
+	//attach(text_backdrop_1);
 	attach(game_name_1);
 	attach(team_name_1);
 	attach(names_1);
@@ -177,8 +177,8 @@ void Game_window::takedown_win_1(){
 	detach(next_button_1);
 	detach(button_cover_1);
 	detach(button_text_1);
-	detach(backdrop_outline_1);
-	detach(text_backdrop_1);
+	//detach(backdrop_outline_1);
+	//detach(text_backdrop_1);
 	detach(game_name_1);
 	detach(team_name_1);
 	detach(names_1);
