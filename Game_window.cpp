@@ -66,6 +66,9 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
     level_6_button_text(Point(w/5+50, h*1/3+350+40), "Level 6"),
     level_7_button_text(Point(w*2/5+50, h*1/3+350+40), "Level 7"),
     level_8_button_text(Point(w*3/5+50, h*1/3+350+40), "Level 8"),
+	
+	level_2_pushed{false}, level_3_pushed{false}, level_4_pushed{false}, level_5_pushed{false},
+	level_6_pushed{false}, level_7_pushed{false}, level_8_pushed{false},
 
 
 	
@@ -85,7 +88,7 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	sattelite_8(Point(400,150), 15),
 	
 //these bools are used to notify when to move the sattelite
-	sat_1_pressed{false}, sat_2_pressed{false}, sat_3_pressed{false}, sat_4_pressed{false},
+	sat_1_pressed{true}, sat_2_pressed{false}, sat_3_pressed{false}, sat_4_pressed{false},
 	sat_5_pressed{false}, sat_6_pressed{false}, sat_7_pressed{false}, sat_8_pressed{false},
 	
 	moves_remaining{50},
@@ -118,7 +121,18 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	button_text_north(Point(635, 765), "Move North"),
 	button_text_south(Point(635, 865), "Move South"),
 	button_text_east(Point(685, 815), "Move East"),
-	button_text_west(Point(585, 815), "Move West")
+	button_text_west(Point(585, 815), "Move West"),
+	
+//----------------------------------Game Over Screen---------------------------------------------
+	restart_game(Point(w/3-50, h*2/3), 200, 100, "Restart", cb_new_game),
+	end_game(Point(w*2/3-50, h*2/3), 200, 100, "Quit", cb_quit_game), 
+	
+	restart_cover(Point(w/3-50, h*2/3), 200, 100),
+	quit_cover(Point(w*2/3-50, h*2/3), 200, 100),
+	
+	restart_text(Point(w/3-20, h*2/3+70), "Restart"),
+	quit_game_text(Point(w*2/3-20, h*2/3+70), "End Game"),
+	game_over_text(Point(w/5, 250), "Game Over")
 
     
 //----------------------------------------Screen 1 Functions-------------------------------------------------------
@@ -141,8 +155,8 @@ void Game_window::design_win_1(){
 	team_name_1.set_color(Color::white);
 	names_1.set_font_size(60);
 	names_1.set_color(Color::white);
-	//text_backdrop_1.set_fill_color(Color::black);
-	//backdrop_outline_1.set_fill_color(Color::white);
+	text_backdrop_1.set_fill_color(Color::black);
+	backdrop_outline_1.set_fill_color(Color::white);
 }
 
 //build_win attaches the objects
@@ -151,8 +165,8 @@ void Game_window::build_win_1(){
 	attach(next_button_1);
 	attach(button_cover_1);
 	attach(button_text_1);
-	//attach(backdrop_outline_1);
-	//attach(text_backdrop_1);
+	attach(backdrop_outline_1);
+	attach(text_backdrop_1);
 	attach(game_name_1);
 	attach(team_name_1);
 	attach(names_1);
@@ -163,8 +177,8 @@ void Game_window::takedown_win_1(){
 	detach(next_button_1);
 	detach(button_cover_1);
 	detach(button_text_1);
-	//detach(backdrop_outline_1);
-	//detach(text_backdrop_1);
+	detach(backdrop_outline_1);
+	detach(text_backdrop_1);
 	detach(game_name_1);
 	detach(team_name_1);
 	detach(names_1);
@@ -375,6 +389,7 @@ void Game_window::level_2(){
 	attach(sattelite_2);
 	attach(sattelite_1_button);
 	attach(sattelite_2_button);
+	level_2_pushed=true;
 }
 
 void Game_window::cb_level_2(Address, Address pw){
@@ -391,7 +406,7 @@ void Game_window::level_3(){
     attach(sattelite_1);
     attach(sattelite_2);
     attach(sattelite_3);
-   
+	level_3_pushed=true;
 
 }
 
@@ -410,6 +425,7 @@ void Game_window::level_4(){
 	attach(sattelite_2_button);
 	attach(sattelite_3_button);
 	attach(sattelite_4_button);
+	level_4_pushed=true;
 }
 
 void Game_window::cb_level_4(Address, Address pw){
@@ -429,6 +445,7 @@ void Game_window::level_5(){
 	attach(sattelite_3_button);
 	attach(sattelite_4_button);
 	attach(sattelite_5_button);
+	level_5_pushed=true;
 }
 
 void Game_window::cb_level_5(Address, Address pw){
@@ -450,6 +467,7 @@ void Game_window::level_6(){
 	attach(sattelite_4_button);
 	attach(sattelite_5_button);
 	attach(sattelite_6_button);
+	level_6_pushed=true;
 }
 
 void Game_window::cb_level_6(Address, Address pw){
@@ -473,6 +491,7 @@ void Game_window::level_7(){
 	attach(sattelite_5_button);
 	attach(sattelite_6_button);
 	attach(sattelite_7_button);
+	level_7_pushed=true;
 }
 
 void Game_window::cb_level_7(Address, Address pw){
@@ -498,10 +517,21 @@ void Game_window::level_8(){
 	attach(sattelite_6_button);
 	attach(sattelite_7_button);
 	attach(sattelite_8_button);
+	level_8_pushed=true;
 }
 
 void Game_window::cb_level_8(Address, Address pw){
     reference_to<Game_window>(pw).level_8();
+}
+
+void Game_window::reset_level_bools(){
+	level_2_pushed=false;
+	level_3_pushed=false;
+	level_4_pushed=false;
+	level_5_pushed=false;
+	level_6_pushed=false;
+	level_7_pushed=false;
+	level_8_pushed=false;
 }
 
 
@@ -787,6 +817,7 @@ void Game_window::move_north(){
 	moves_remaining-=1;
     remaining();
 	redraw();
+	game_over_check();
 }
 void Game_window::move_south(){
 	if (sat_1_pressed==true){
@@ -816,6 +847,7 @@ void Game_window::move_south(){
 	moves_remaining-=1;
     remaining();
 	redraw();
+	game_over_check();
 }
 void Game_window::move_east(){
 	if (sat_1_pressed==true){
@@ -845,6 +877,7 @@ void Game_window::move_east(){
 	moves_remaining-=1;
     remaining();
 	redraw();
+	game_over_check();
 }
 
 void Game_window::move_west(){
@@ -875,6 +908,7 @@ void Game_window::move_west(){
 	moves_remaining-=1;
     remaining();
 	redraw();
+	game_over_check();
 }
 //callbacks
 void Game_window::cb_north(Address, Address pw){
@@ -943,7 +977,6 @@ void Game_window::shift_right(Shape& c, Widget& w){
 		else if(moves_remaining>0 && moves_remaining<=10){
 			c.move(4,0); w.move(4,0);
 		}
-		
 }
 
 void Game_window::shift_left(Shape& c, Widget& w){
@@ -979,6 +1012,51 @@ void Game_window::wraparound_check(Point& p, Circle& c, Widget & w){
 	}
 }
 
+void Game_window::remove_sattelites(){
+	if (level_2_pushed==true){
+		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button);
+	}
+	else if (level_3_pushed==true){
+		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button);
+	}
+	else if(level_4_pushed==true){
+		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button);
+	}
+	else if(level_5_pushed==true){
+		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button);
+	}
+	else if(level_6_pushed==true){
+		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button); detach(sattelite_6); detach(sattelite_6_button);
+	}
+	else if(level_7_pushed==true){
+		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button); detach(sattelite_6); detach(sattelite_6_button); detach(sattelite_7); detach(sattelite_7_button);
+	}
+	else if(level_8_pushed==true){
+		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button); detach(sattelite_6); detach(sattelite_6_button); detach(sattelite_7); detach(sattelite_7_button); detach(sattelite_8); detach(sattelite_8_button);
+	}
+	reset_level_bools();
+}
+
+void Game_window::takedown_win_5(){
+	detach(mercator_map);
+	detach(north_button);
+	detach(south_button);
+	detach(east_button);
+	detach(west_button);
+
+	detach(button_cover_north);
+	detach(button_cover_south);
+	detach(button_cover_east);
+	detach(button_cover_west);
+	detach(button_text_north);
+	detach(button_text_south);
+	detach(button_text_east);
+	detach(button_text_west);
+    detach(moves_remaining_out);
+	remove_sattelites();
+	
+}
+
 //void Game_window::reset_sat_bools(){
 	//sat_1_pressed=false;
 	//sat_2_pressed=false;
@@ -989,3 +1067,64 @@ void Game_window::wraparound_check(Point& p, Circle& c, Widget & w){
 //	sat_7_pressed=false;
 //	sat_8_pressed=false;
 //}
+
+//--------------------------------------Game Over Screen---------------------------------------------
+
+void Game_window::game_over_check(){
+	if(moves_remaining==0){
+	takedown_win_5();
+	design_win_6();
+	build_win_6();
+	}
+}
+
+void Game_window::build_win_6(){
+	attach(my_background_1);
+	attach(restart_game);
+	attach(end_game);
+	attach(restart_cover);
+	attach(quit_cover);
+	attach(restart_text);
+	attach(quit_game_text);
+	attach(game_over_text);
+}
+
+void Game_window::design_win_6(){
+	restart_cover.set_fill_color(Color::red);
+	quit_cover.set_fill_color(Color::red);
+	game_over_text.set_font_size(150);
+	game_over_text.set_color(Color::red);
+	restart_text.set_font_size(30);
+	quit_game_text.set_font_size(30);
+}
+
+void Game_window::takedown_win_6(){
+	detach(my_background_1);
+	detach(restart_game);
+	detach(end_game);
+	detach(restart_cover);
+	detach(quit_cover);
+	detach(restart_text);
+	detach(quit_game_text);
+	detach(game_over_text);
+	
+}
+
+void Game_window::new_game(){
+	takedown_win_6();
+	design_win_3();
+	build_win_3();
+	moves_remaining=50;
+}
+
+void Game_window::quit_game(){
+	hide();
+}
+
+void Game_window::cb_new_game(Address, Address pw){
+	reference_to<Game_window>(pw).new_game();
+}
+
+void Game_window::cb_quit_game(Address, Address pw){
+	reference_to<Game_window>(pw).quit_game();
+}

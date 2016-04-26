@@ -131,6 +131,15 @@ private:
     Text level_6_button_text;
     Text level_7_button_text;
     Text level_8_button_text;
+	
+	bool level_2_pushed;
+	bool level_3_pushed;
+	bool level_4_pushed;
+	bool level_5_pushed;
+	bool level_6_pushed;
+	bool level_7_pushed;
+	bool level_8_pushed;
+	void reset_level_bools();
 
     void level_2();
     void level_3();
@@ -258,6 +267,29 @@ public:
 	void design_win_5();
 	void build_win_5();
     void remaining();
+	void takedown_win_5();
+	void remove_sattelites();
+	
+//----------------------------------Game Over Window--------------------------------------------------
 
+	void game_over_check();
+	void quit_game();
+	void new_game();
+	void build_win_6();
+	void design_win_6();
+	void takedown_win_6();
+	
+	Button restart_game;
+	Button end_game;
+	
+	static void cb_new_game(Address, Address);
+	static void cb_quit_game(Address, Address);
+	
+	Rectangle restart_cover;
+	Rectangle quit_cover;
+	
+	Text restart_text;
+	Text quit_game_text;
+	Text game_over_text;
 };
 
