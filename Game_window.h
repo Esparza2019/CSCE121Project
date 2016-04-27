@@ -1,4 +1,3 @@
-
 #include "Simple_window.h"
 #include "Window.h"
 #include "Graph.h"
@@ -19,11 +18,11 @@ struct high_score
     string initials;
     int score;
     
-    void set_initials(String s);
+    //void set_initials();
     void set_score(int p);
     
     String get_initials();
-    int get_score();
+    int get_score(); 
 };
 
 
@@ -80,20 +79,19 @@ public:
     
     Rectangle button_cover_3;
     Text button_text_3;
-	Rectangle backdrop_3;
+	 Rectangle backdrop_3;
     
     void design_win_3();//gives the style to the elements in the window
     void build_win_3();
     void takedown_win_3();
-    
-    
-private:
     
     In_box user_initials;
     vector<Text*> initials_and_scores;
     vector<high_score> scores;
     //Button continue_button;
     Text high_scores;
+    
+    high_score user_score;
     Image background;
     
     //void next_button(); // was originally here, make sure to switch all next_button to next_button_3
@@ -165,14 +163,14 @@ public:
 	
 //----------------------------------------Screen 5---------------------------------
 
-	Circle sattelite_1;
-	Circle sattelite_2;
-	Circle sattelite_3;
-	Circle sattelite_4;
-	Circle sattelite_5;
-	Circle sattelite_6;
-	Circle sattelite_7;
-	Circle sattelite_8;
+	Circle satellite_1;
+	Circle satellite_2;
+	Circle satellite_3;
+	Circle satellite_4;
+	Circle satellite_5;
+	Circle satellite_6;
+	Circle satellite_7;
+	Circle satellite_8;
 	
 	Point p1;
 	Point p2;
@@ -185,14 +183,14 @@ public:
 	
 	Image mercator_map;
 	
-	Button sattelite_1_button;
-	Button sattelite_2_button;
-	Button sattelite_3_button;
-	Button sattelite_4_button;
-	Button sattelite_5_button;
-	Button sattelite_6_button;
-	Button sattelite_7_button;
-	Button sattelite_8_button;
+	Button satellite_1_button;
+	Button satellite_2_button;
+	Button satellite_3_button;
+	Button satellite_4_button;
+	Button satellite_5_button;
+	Button satellite_6_button;
+	Button satellite_7_button;
+	Button satellite_8_button;
 	
 	void reset_sat_bools();
 	
@@ -215,14 +213,14 @@ public:
 //	bool east_pressed;
 //	bool west_pressed;
 
-	void sattelite_1_chosen();
-	void sattelite_2_chosen();
-	void sattelite_3_chosen();
-	void sattelite_4_chosen();
-	void sattelite_5_chosen();
-	void sattelite_6_chosen();
-	void sattelite_7_chosen();
-	void sattelite_8_chosen();
+	void satellite_1_chosen();
+	void satellite_2_chosen();
+	void satellite_3_chosen();
+	void satellite_4_chosen();
+	void satellite_5_chosen();
+	void satellite_6_chosen();
+	void satellite_7_chosen();
+	void satellite_8_chosen();
 	
 	void move_north();
 	void move_south();
@@ -237,7 +235,9 @@ public:
 	void shift_left(Shape& c, Widget& w);
 	
 	int moves_remaining;
-    Out_box moves_remaining_out;
+   Out_box moves_remaining_out;
+   
+   Out_box selected_satellite;
 	
 	static void cb_sat_1(Address, Address);
 	static void cb_sat_2(Address, Address);
@@ -263,12 +263,32 @@ public:
 	Text button_text_east;
 	Text button_text_west;
 	
-	void design_sattelites();
+	void design_satellites();
 	void design_win_5();
 	void build_win_5();
-    void remaining();
+   void remaining();
 	void takedown_win_5();
-	void remove_sattelites();
+	void remove_satellites();
+
+//----------------------------------Scores--------------------------------------------------	
+   int num_satellites;
+   int minimum_score;
+ 	vector<int> possible_scores;
+   Out_box current_score;
+    
+   void write_score_to_file();
+   int num_of_possible_scores(int n);
+   int find_min_score(vector<int> s);
+   int find_distance(Point a, Point b);
+   double convert_radians(double a);
+      
+   int populate_possible_scores_2_sats(int n);
+   vector<int> populate_possible_scores_3_sats(int n);
+   vector<int> populate_possible_scores_4_sats(int n);
+   vector<int> populate_possible_scores_5_sats(int n);
+   vector<int> populate_possible_scores_6_sats(int n); 
+   vector<int> populate_possible_scores_7_sats(int n);
+   vector<int> populate_possible_scores_8_sats(int n);
 	
 //----------------------------------Game Over Window--------------------------------------------------
 
@@ -292,4 +312,3 @@ public:
 	Text quit_game_text;
 	Text game_over_text;
 };
-

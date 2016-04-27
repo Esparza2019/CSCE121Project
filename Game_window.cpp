@@ -19,13 +19,13 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
 	summary_2{Point(200,300), "No Service."},
 	summary1_2{Point(200,350),"Today all connectivity was lost, our world's top minds are working hard to find a solution."},
 	summary2_2{Point(200,400),"Normally this might've been an easy task, but without any communication its all up to you."},
-    summary3_2{Point(200,450),"Our engineers have repaired some satelites and you need to place them and cover as many people as possible."},
-    summary4_2{Point(200,500),"Click on any satellite to select it, and move it by pressing the movement buttons."},
-    summary5_2{Point(200,550),"The game ends when no moves are left."},
+   summary3_2{Point(200,450),"Our engineers have repaired some satelites and you need to place them and cover as many people as possible."},
+   summary4_2{Point(200,500),"Click on any satellite to select it, and move it by pressing the movement buttons."},
+   summary5_2{Point(200,550),"The game ends when no moves are left."},
 	
 	next_button_2(Point(w/2-50, y_max()-200), 100, 50, "Continue", cb_next_2),
 	button_cover_2(Point(w/2-50, y_max()-200), 100, 50),
-    button_text_2(Point(w/2-47, y_max()-165), "Continue"),
+   button_text_2(Point(w/2-47, y_max()-165), "Continue"),
 	
 	
 //-----------------------------Screen 3---------------------------------------------------------
@@ -67,46 +67,48 @@ Game_window::Game_window(Point xy, int w, int h, const string& title)
     level_7_button_text(Point(w*2/5+50, h*1/3+350+40), "Level 7"),
     level_8_button_text(Point(w*3/5+50, h*1/3+350+40), "Level 8"),
 	
-	level_2_pushed{false}, level_3_pushed{false}, level_4_pushed{false}, level_5_pushed{false},
-	level_6_pushed{false}, level_7_pushed{false}, level_8_pushed{false},
+	 level_2_pushed{false}, level_3_pushed{false}, level_4_pushed{false}, level_5_pushed{false},
+	 level_6_pushed{false}, level_7_pushed{false}, level_8_pushed{false},
 
 
 	
 //---------------------------------Screen 5----------------------------------------
 
 //points used to calculate score
-	p1(sattelite_1.center()), p2(sattelite_2.center()), p3(sattelite_3.center()), p4(sattelite_4.center()), 
-	p5(sattelite_5.center()), p6(sattelite_6.center()), p7(sattelite_7.center()), p8(sattelite_8.center()),
+	p1(satellite_1.center()), p2(satellite_2.center()), p3(satellite_3.center()), p4(satellite_4.center()), 
+	p5(satellite_5.center()), p6(satellite_6.center()), p7(satellite_7.center()), p8(satellite_8.center()),
 	
-	sattelite_1(Point(250, 250), 15),
-	sattelite_2(Point(600,600), 15),
-	sattelite_3(Point(300,400), 15),
-	sattelite_4(Point(900,200), 15),
-	sattelite_5(Point(600,350), 15),
-	sattelite_6(Point(1100,350), 15),
-	sattelite_7(Point(900,550), 15),
-	sattelite_8(Point(400,150), 15),
+	satellite_1(Point(250, 250), 15),
+	satellite_2(Point(600,600), 15),
+	satellite_3(Point(300,400), 15),
+	satellite_4(Point(900,200), 15),
+	satellite_5(Point(600,350), 15),
+	satellite_6(Point(1100,350), 15),
+	satellite_7(Point(900,550), 15),
+	satellite_8(Point(400,150), 15),
 	
-//these bools are used to notify when to move the sattelite
+//these bools are used to notify when to move the satellite
 	sat_1_pressed{true}, sat_2_pressed{false}, sat_3_pressed{false}, sat_4_pressed{false},
 	sat_5_pressed{false}, sat_6_pressed{false}, sat_7_pressed{false}, sat_8_pressed{false},
 	
 	moves_remaining{50},
-    moves_remaining_out{Point(425,730),100,20,"Moves Remaining"},
+   moves_remaining_out{Point(425,730),100,20,"Moves Remaining"},
+   selected_satellite{Point(425,755),100,20,"Current Satellite: "},
+   current_score{Point(425,780),100,20, user_score.initials + ": "}, 
 	
 	//north_pressed{false}, south_pressed{false}, east_pressed{false}, west_pressed{false},
 	
-	mercator_map(Point(0,0), "rsz_equirectangular.jpg"),
+	mercator_map(Point(0,0), "equirectangular.jpg"),
 
 //buttons for screen 5
-	sattelite_1_button(Point(p1.x-15, p1.y-15), 30, 30, "1" , cb_sat_1),
-	sattelite_2_button(Point(p2.x-15, p2.y-15), 30, 30, "2", cb_sat_2),
-	sattelite_3_button(Point(p3.x-15, p3.y-15), 30, 30, "3", cb_sat_3),
-	sattelite_4_button(Point(p4.x-15, p4.y-15), 30, 30, "4", cb_sat_4),
-	sattelite_5_button(Point(p5.x-15, p5.y-15), 30, 30, "5", cb_sat_5),
-	sattelite_6_button(Point(p6.x-15, p6.y-15), 30, 30, "6", cb_sat_6),
-	sattelite_7_button(Point(p7.x-15, p7.y-15), 30, 30, "7", cb_sat_7),
-	sattelite_8_button(Point(p8.x-15, p8.y-15), 30, 30, "8", cb_sat_8),
+	satellite_1_button(Point(p1.x-15, p1.y-15), 30, 30, "1" , cb_sat_1),
+	satellite_2_button(Point(p2.x-15, p2.y-15), 30, 30, "2", cb_sat_2),
+	satellite_3_button(Point(p3.x-15, p3.y-15), 30, 30, "3", cb_sat_3),
+	satellite_4_button(Point(p4.x-15, p4.y-15), 30, 30, "4", cb_sat_4),
+	satellite_5_button(Point(p5.x-15, p5.y-15), 30, 30, "5", cb_sat_5),
+	satellite_6_button(Point(p6.x-15, p6.y-15), 30, 30, "6", cb_sat_6),
+	satellite_7_button(Point(p7.x-15, p7.y-15), 30, 30, "7", cb_sat_7),
+	satellite_8_button(Point(p8.x-15, p8.y-15), 30, 30, "8", cb_sat_8),
 	
 	north_button(Point(625, 730), 100, 50, "Move North", cb_north),
 	south_button(Point(625, 830), 100, 50, "Move South", cb_south),
@@ -206,8 +208,8 @@ void Game_window::design_win_2(){
     //intro_2.set_font(FL_TIMES);
     //intro_2.set_font_size(100);
 	
-	button_cover_2.set_fill_color(Color::red);
-	button_text_2.set_font_size(24);
+	 button_cover_2.set_fill_color(Color::red);
+	 button_text_2.set_font_size(24);
 	
     summary_2.set_color(Color::white);
     summary1_2.set_color(Color::white);
@@ -235,7 +237,7 @@ void Game_window::build_win_2(){
 	attach(summary5_2);
 	//attach(intro_2);
 	attach(button_cover_2);
-    attach(button_text_2);
+   attach(button_text_2);
 }
 
 //takedown_win will detach all of the objects from the screen
@@ -247,16 +249,16 @@ void Game_window::takedown_win_2(){
 	detach(summary4_2);
 	detach(summary5_2);
 	//detach(intro_2);
-    detach(button_text_2);
-    detach(button_cover_2);
-    detach(next_button_2);
+   detach(button_text_2);
+   detach(button_cover_2);
+   detach(next_button_2);
 	detach(my_background_1);
     
 }
 
 void Game_window::next_2(){
     //removes all elements from win_2
-	takedown_win_2();
+	 takedown_win_2();
     //set the styles for the second screen
     design_win_3();
     //attach the elements to the window
@@ -269,10 +271,10 @@ void Game_window::cb_next_2(Address, Address pw){
 
 //---------------------------------------Screen 3 functions-------------------------------------
 // Tyler's code
-void high_score::set_initials(String s)
+/*void high_score::set_initials()
 {
-    initials = s;
-}
+    initials = Game_window::user_initials.get_string();
+}*/
 void high_score::set_score(int p)
 {
     score = p;
@@ -359,9 +361,14 @@ void Game_window::build_win_3(){
 }
 //takedown_win will detach all of the objects from the screen
 void Game_window::takedown_win_3(){
+	 user_score.initials = user_initials.get_string();
     detach(high_scores);
     detach(user_initials);
     detach(next_button_3);
+    for(int k = 0; k < initials_and_scores.size(); k++)
+    {
+        detach(*(initials_and_scores[k]));
+    }
     ///detach(button_cover_3);
     //detach(button_text_3);
 }
@@ -383,13 +390,14 @@ void Game_window::cb_next_3(Address, Address pw){
 //-------------------------------------------------Screen 4 Functions---------------------------------------------
 
 void Game_window::level_2(){
-    next_4();
-	design_sattelites();
-	attach(sattelite_1);
-	attach(sattelite_2);
-	attach(sattelite_1_button);
-	attach(sattelite_2_button);
+   next_4();
+	design_satellites();
+	attach(satellite_1);
+	attach(satellite_2);
+	attach(satellite_1_button);
+	attach(satellite_2_button);
 	level_2_pushed=true;
+	num_satellites = 2;
 }
 
 void Game_window::cb_level_2(Address, Address pw){
@@ -397,17 +405,17 @@ void Game_window::cb_level_2(Address, Address pw){
 }
 
 void Game_window::level_3(){
-    next_4();
-	design_sattelites();
+   next_4();
+	design_satellites();
 	
-	attach(sattelite_1_button);
-	attach(sattelite_2_button);
-	attach(sattelite_3_button);
-    attach(sattelite_1);
-    attach(sattelite_2);
-    attach(sattelite_3);
+	attach(satellite_1_button);
+	attach(satellite_2_button);
+	attach(satellite_3_button);
+   attach(satellite_1);
+   attach(satellite_2);
+   attach(satellite_3);
 	level_3_pushed=true;
-
+	num_satellites = 3;
 }
 
 void Game_window::cb_level_3(Address, Address pw){
@@ -415,17 +423,18 @@ void Game_window::cb_level_3(Address, Address pw){
 }
 
 void Game_window::level_4(){
-    next_4();
-	design_sattelites();
-	attach(sattelite_1);
-	attach(sattelite_2);
-	attach(sattelite_3);
-	attach(sattelite_4);
-	attach(sattelite_1_button);
-	attach(sattelite_2_button);
-	attach(sattelite_3_button);
-	attach(sattelite_4_button);
+   next_4();
+	design_satellites();
+	attach(satellite_1);
+	attach(satellite_2);
+	attach(satellite_3);
+	attach(satellite_4);
+	attach(satellite_1_button);
+	attach(satellite_2_button);
+	attach(satellite_3_button);
+	attach(satellite_4_button);
 	level_4_pushed=true;
+	num_satellites = 4;
 }
 
 void Game_window::cb_level_4(Address, Address pw){
@@ -433,19 +442,20 @@ void Game_window::cb_level_4(Address, Address pw){
 }
 
 void Game_window::level_5(){
-    next_4();
-	design_sattelites();
-	attach(sattelite_1);
-	attach(sattelite_2);
-	attach(sattelite_3);
-	attach(sattelite_4);
-	attach(sattelite_5);
-	attach(sattelite_1_button);
-	attach(sattelite_2_button);
-	attach(sattelite_3_button);
-	attach(sattelite_4_button);
-	attach(sattelite_5_button);
+   next_4();
+	design_satellites();
+	attach(satellite_1);
+	attach(satellite_2);
+	attach(satellite_3);
+	attach(satellite_4);
+	attach(satellite_5);
+	attach(satellite_1_button);
+	attach(satellite_2_button);
+	attach(satellite_3_button);
+	attach(satellite_4_button);
+	attach(satellite_5_button);
 	level_5_pushed=true;
+	num_satellites = 5;
 }
 
 void Game_window::cb_level_5(Address, Address pw){
@@ -453,21 +463,22 @@ void Game_window::cb_level_5(Address, Address pw){
 }
 
 void Game_window::level_6(){
-    next_4();
-	design_sattelites();
-	attach(sattelite_1);
-	attach(sattelite_2);
-	attach(sattelite_3);
-	attach(sattelite_4);
-	attach(sattelite_5);
-	attach(sattelite_6);
-	attach(sattelite_1_button);
-	attach(sattelite_2_button);
-	attach(sattelite_3_button);
-	attach(sattelite_4_button);
-	attach(sattelite_5_button);
-	attach(sattelite_6_button);
+   next_4();
+	design_satellites();
+	attach(satellite_1);
+	attach(satellite_2);
+	attach(satellite_3);
+	attach(satellite_4);
+	attach(satellite_5);
+	attach(satellite_6);
+	attach(satellite_1_button);
+	attach(satellite_2_button);
+	attach(satellite_3_button);
+	attach(satellite_4_button);
+	attach(satellite_5_button);
+	attach(satellite_6_button);
 	level_6_pushed=true;
+	num_satellites = 6;
 }
 
 void Game_window::cb_level_6(Address, Address pw){
@@ -475,23 +486,24 @@ void Game_window::cb_level_6(Address, Address pw){
 }
 
 void Game_window::level_7(){
-    next_4();
-	design_sattelites();
-	attach(sattelite_1);
-	attach(sattelite_2);
-	attach(sattelite_3);
-	attach(sattelite_4);
-	attach(sattelite_5);
-	attach(sattelite_6);
-	attach(sattelite_7);
-	attach(sattelite_1_button);
-	attach(sattelite_2_button);
-	attach(sattelite_3_button);
-	attach(sattelite_4_button);
-	attach(sattelite_5_button);
-	attach(sattelite_6_button);
-	attach(sattelite_7_button);
+   next_4();
+	design_satellites();
+	attach(satellite_1);
+	attach(satellite_2);
+	attach(satellite_3);
+	attach(satellite_4);
+	attach(satellite_5);
+	attach(satellite_6);
+	attach(satellite_7);
+	attach(satellite_1_button);
+	attach(satellite_2_button);
+	attach(satellite_3_button);
+	attach(satellite_4_button);
+	attach(satellite_5_button);
+	attach(satellite_6_button);
+	attach(satellite_7_button);
 	level_7_pushed=true;
+	num_satellites = 7;
 }
 
 void Game_window::cb_level_7(Address, Address pw){
@@ -499,25 +511,26 @@ void Game_window::cb_level_7(Address, Address pw){
 }
 
 void Game_window::level_8(){
-    next_4();
-	design_sattelites();
-	attach(sattelite_1);
-	attach(sattelite_2);
-	attach(sattelite_3);
-	attach(sattelite_4);
-	attach(sattelite_5);
-	attach(sattelite_6);
-	attach(sattelite_7);
-	attach(sattelite_8);
-	attach(sattelite_1_button);
-	attach(sattelite_2_button);
-	attach(sattelite_3_button);
-	attach(sattelite_4_button);
-	attach(sattelite_5_button);
-	attach(sattelite_6_button);
-	attach(sattelite_7_button);
-	attach(sattelite_8_button);
+   next_4();
+	design_satellites();
+	attach(satellite_1);
+	attach(satellite_2);
+	attach(satellite_3);
+	attach(satellite_4);
+	attach(satellite_5);
+	attach(satellite_6);
+	attach(satellite_7);
+	attach(satellite_8);
+	attach(satellite_1_button);
+	attach(satellite_2_button);
+	attach(satellite_3_button);
+	attach(satellite_4_button);
+	attach(satellite_5_button);
+	attach(satellite_6_button);
+	attach(satellite_7_button);
+	attach(satellite_8_button);
 	level_8_pushed=true;
+	num_satellites = 8;
 }
 
 void Game_window::cb_level_8(Address, Address pw){
@@ -532,6 +545,7 @@ void Game_window::reset_level_bools(){
 	level_6_pushed=false;
 	level_7_pushed=false;
 	level_8_pushed=false;
+	num_satellites = 0;
 }
 
 
@@ -614,24 +628,21 @@ void Game_window::takedown_win_4(){
 }
 
 void Game_window::next_4(){
-    takedown_win_4();
+   takedown_win_4();
 	design_win_5();
 	build_win_5();
-
 }
 
 //----------------------------------Screen 5 Functions---------------------------------------------
-
-
-void Game_window::design_sattelites(){
-	sattelite_1.set_fill_color(Color::red);
-	sattelite_2.set_fill_color(Color::blue);
-	sattelite_3.set_fill_color(Color::green);
-	sattelite_4.set_fill_color(Color::yellow);
-	sattelite_5.set_fill_color(Color::cyan);
-	sattelite_6.set_fill_color(Color::white);
-	sattelite_7.set_fill_color(Color::black);
-	sattelite_8.set_fill_color(Color::magenta);
+void Game_window::design_satellites(){
+	satellite_1.set_fill_color(Color::red);
+	satellite_2.set_fill_color(Color::blue);
+	satellite_3.set_fill_color(Color::green);
+	satellite_4.set_fill_color(Color::yellow);
+	satellite_5.set_fill_color(Color::cyan);
+	satellite_6.set_fill_color(Color::white);
+	satellite_7.set_fill_color(Color::black);
+	satellite_8.set_fill_color(Color::magenta);
 }
 
 // Updates the out_box that displays the remaining amount of moves.
@@ -667,14 +678,13 @@ void Game_window::build_win_5(){
 	attach(button_text_south);
 	attach(button_text_east);
 	attach(button_text_west);
-    attach(moves_remaining_out);
-
-
+   attach(moves_remaining_out);
+   attach(current_score);
+   attach(selected_satellite);
 }
 
-//sattelite button functions
-
-void Game_window::sattelite_1_chosen(){
+//satellite button functions
+void Game_window::satellite_1_chosen(){
 	sat_1_pressed=true;
 	sat_2_pressed=false;
 	sat_3_pressed=false;
@@ -683,9 +693,11 @@ void Game_window::sattelite_1_chosen(){
 	sat_6_pressed=false;
 	sat_7_pressed=false;
 	sat_8_pressed=false;
+	selected_satellite.put("RED");
+	redraw();
 }
 
-void Game_window::sattelite_2_chosen(){
+void Game_window::satellite_2_chosen(){
 	sat_1_pressed=false;
 	sat_2_pressed=true;
 	sat_3_pressed=false;
@@ -694,9 +706,11 @@ void Game_window::sattelite_2_chosen(){
 	sat_6_pressed=false;
 	sat_7_pressed=false;
 	sat_8_pressed=false;
+	selected_satellite.put("BLUE");
+	redraw();
 }
 
-void Game_window::sattelite_3_chosen(){
+void Game_window::satellite_3_chosen(){
 	sat_1_pressed=false;
 	sat_2_pressed=false;
 	sat_3_pressed=true;
@@ -705,9 +719,11 @@ void Game_window::sattelite_3_chosen(){
 	sat_6_pressed=false;
 	sat_7_pressed=false;
 	sat_8_pressed=false;
+	selected_satellite.put("GREEN");
+	redraw();
 }
 
-void Game_window::sattelite_4_chosen(){
+void Game_window::satellite_4_chosen(){
 	sat_1_pressed=false;
 	sat_2_pressed=false;
 	sat_3_pressed=false;
@@ -716,9 +732,11 @@ void Game_window::sattelite_4_chosen(){
 	sat_6_pressed=false;
 	sat_7_pressed=false;
 	sat_8_pressed=false;
+	selected_satellite.put("YELLOW");
+	redraw();
 }
 
-void Game_window::sattelite_5_chosen(){
+void Game_window::satellite_5_chosen(){
 	sat_1_pressed=false;
 	sat_2_pressed=false;
 	sat_3_pressed=false;
@@ -727,9 +745,11 @@ void Game_window::sattelite_5_chosen(){
 	sat_6_pressed=false;
 	sat_7_pressed=false;
 	sat_8_pressed=false;
+	selected_satellite.put("CYAN");
+	redraw();
 }
 
-void Game_window::sattelite_6_chosen(){
+void Game_window::satellite_6_chosen(){
 	sat_1_pressed=false;
 	sat_2_pressed=false;
 	sat_3_pressed=false;
@@ -738,9 +758,11 @@ void Game_window::sattelite_6_chosen(){
 	sat_6_pressed=true;
 	sat_7_pressed=false;
 	sat_8_pressed=false;
+	selected_satellite.put("WHITE");
+	redraw();
 }
 
-void Game_window::sattelite_7_chosen(){
+void Game_window::satellite_7_chosen(){
 	sat_1_pressed=false;
 	sat_2_pressed=false;
 	sat_3_pressed=false;
@@ -749,9 +771,11 @@ void Game_window::sattelite_7_chosen(){
 	sat_6_pressed=false;
 	sat_7_pressed=true;
 	sat_8_pressed=false;
+	selected_satellite.put("BLACK");
+	redraw();
 }
 
-void Game_window::sattelite_8_chosen(){
+void Game_window::satellite_8_chosen(){
 	sat_1_pressed=false;
 	sat_2_pressed=false;
 	sat_3_pressed=false;
@@ -760,153 +784,323 @@ void Game_window::sattelite_8_chosen(){
 	sat_6_pressed=false;
 	sat_7_pressed=false;
 	sat_8_pressed=true;
+	selected_satellite.put("MAGENTA");
+	redraw();
 }
 
 void Game_window::cb_sat_1(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_1_chosen();
+	reference_to<Game_window>(pw).satellite_1_chosen();
 }
 void Game_window::cb_sat_2(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_2_chosen();
+	reference_to<Game_window>(pw).satellite_2_chosen();
 }
 void Game_window::cb_sat_3(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_3_chosen();
+	reference_to<Game_window>(pw).satellite_3_chosen();
 }
 void Game_window::cb_sat_4(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_4_chosen();
+	reference_to<Game_window>(pw).satellite_4_chosen();
 }
 void Game_window::cb_sat_5(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_5_chosen();
+	reference_to<Game_window>(pw).satellite_5_chosen();
 }
 void Game_window::cb_sat_6(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_6_chosen();
+	reference_to<Game_window>(pw).satellite_6_chosen();
 }
 void Game_window::cb_sat_7(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_7_chosen();
+	reference_to<Game_window>(pw).satellite_7_chosen();
 }
 void Game_window::cb_sat_8(Address, Address pw){
-	reference_to<Game_window>(pw).sattelite_8_chosen();
+	reference_to<Game_window>(pw).satellite_8_chosen();
 }
 
 //NSEW button functions
 
 void Game_window::move_north(){
 	if (sat_1_pressed==true){
-		shift_up(sattelite_1, sattelite_1_button); p1 = sattelite_1.center(); wraparound_check(p1, sattelite_1, sattelite_1_button);
+		shift_up(satellite_1, satellite_1_button); 
+		p1 = satellite_1.center(); 
+		wraparound_check(p1, satellite_1, satellite_1_button);
 	}
 	else if(sat_2_pressed==true){
-		shift_up(sattelite_2, sattelite_2_button); p2 = sattelite_2.center(); wraparound_check(p2, sattelite_2, sattelite_2_button);
+		shift_up(satellite_2, satellite_2_button); 
+		p2 = satellite_2.center(); 
+		wraparound_check(p2, satellite_2, satellite_2_button);
 	}
 	else if(sat_3_pressed==true){
-		shift_up(sattelite_3, sattelite_3_button); p3 = sattelite_3.center(); wraparound_check(p3, sattelite_3, sattelite_3_button);
+		shift_up(satellite_3, satellite_3_button); 
+		p3 = satellite_3.center(); 
+		wraparound_check(p3, satellite_3, satellite_3_button);
 	}
 	else if(sat_4_pressed==true){
-		shift_up(sattelite_4, sattelite_4_button); p4 = sattelite_4.center(); wraparound_check(p4, sattelite_4, sattelite_4_button);
+		shift_up(satellite_4, satellite_4_button); 
+		p4 = satellite_4.center(); 
+		wraparound_check(p4, satellite_4, satellite_4_button);
 	}
 	else if(sat_5_pressed==true){
-		shift_up(sattelite_5, sattelite_5_button); p5 = sattelite_5.center(); wraparound_check(p5, sattelite_5, sattelite_5_button);
+		shift_up(satellite_5, satellite_5_button); 
+		p5 = satellite_5.center(); 
+		wraparound_check(p5, satellite_5, satellite_5_button);
 	}
 	else if(sat_6_pressed==true){
-		shift_up(sattelite_6, sattelite_6_button); p6 = sattelite_6.center(); wraparound_check(p6, sattelite_6, sattelite_6_button);
+		shift_up(satellite_6, satellite_6_button); 
+		p6 = satellite_6.center(); 
+		wraparound_check(p6, satellite_6, satellite_6_button);
 	}
 	else if(sat_7_pressed==true){
-		shift_up(sattelite_7, sattelite_7_button); p7 = sattelite_7.center(); wraparound_check(p7, sattelite_7, sattelite_7_button);
+		shift_up(satellite_7, satellite_7_button); 
+		p7 = satellite_7.center(); 
+		wraparound_check(p7, satellite_7, satellite_7_button);
 	}
 	else if(sat_8_pressed==true){
-		shift_up(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
+		shift_up(satellite_8, satellite_8_button); 
+		p8 = satellite_8.center(); 
+		wraparound_check(p8, satellite_8, satellite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
+   remaining();
+   switch(num_satellites)
+   {
+   	case 2:
+   		minimum_score = populate_possible_scores_2_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 3:
+   		possible_scores = populate_possible_scores_3_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 4:
+   		possible_scores = populate_possible_scores_4_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 5:
+   		possible_scores = populate_possible_scores_5_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 6:
+   		possible_scores = populate_possible_scores_6_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 7:
+   		possible_scores = populate_possible_scores_7_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 8:
+   		possible_scores = populate_possible_scores_8_sats(num_of_possible_scores(num_satellites));
+   		break;
+   }
+   minimum_score = find_min_score(possible_scores);
+   current_score.put(to_string(minimum_score));
 	redraw();
 	game_over_check();
 }
 void Game_window::move_south(){
 	if (sat_1_pressed==true){
-		shift_down(sattelite_1, sattelite_1_button); p1 = sattelite_1.center(); wraparound_check(p1, sattelite_1, sattelite_1_button);
+		shift_down(satellite_1, satellite_1_button); 
+		p1 = satellite_1.center(); 
+		wraparound_check(p1, satellite_1, satellite_1_button);
 	}
 	else if(sat_2_pressed==true){ 
-		shift_down(sattelite_2, sattelite_2_button); p2 = sattelite_2.center(); wraparound_check(p2, sattelite_2, sattelite_2_button);
+		shift_down(satellite_2, satellite_2_button); 
+		p2 = satellite_2.center(); 
+		wraparound_check(p2, satellite_2, satellite_2_button);
 	}
 	else if(sat_3_pressed==true){
-		shift_down(sattelite_3, sattelite_3_button); p3 = sattelite_3.center(); wraparound_check(p3, sattelite_3, sattelite_3_button);
+		shift_down(satellite_3, satellite_3_button); 
+		p3 = satellite_3.center(); 
+		wraparound_check(p3, satellite_3, satellite_3_button);
 	}
 	else if(sat_4_pressed==true){
-		shift_down(sattelite_4, sattelite_4_button); p4 = sattelite_4.center(); wraparound_check(p4, sattelite_4, sattelite_4_button);
+		shift_down(satellite_4, satellite_4_button); 
+		p4 = satellite_4.center(); 
+		wraparound_check(p4, satellite_4, satellite_4_button);
 	}
 	else if(sat_5_pressed==true){
-		shift_down(sattelite_5, sattelite_5_button); p5 = sattelite_5.center(); wraparound_check(p5, sattelite_5, sattelite_5_button);
+		shift_down(satellite_5, satellite_5_button); 
+		p5 = satellite_5.center(); 
+		wraparound_check(p5, satellite_5, satellite_5_button);
 	}
 	else if(sat_6_pressed==true){
-		shift_down(sattelite_6, sattelite_6_button); p6 = sattelite_6.center(); wraparound_check(p6, sattelite_6, sattelite_6_button);
+		shift_down(satellite_6, satellite_6_button); 
+		p6 = satellite_6.center(); 
+		wraparound_check(p6, satellite_6, satellite_6_button);
 	}
 	else if(sat_7_pressed==true){
-		shift_down(sattelite_7, sattelite_7_button); p7 = sattelite_7.center(); wraparound_check(p7, sattelite_7, sattelite_7_button);
+		shift_down(satellite_7, satellite_7_button); 
+		p7 = satellite_7.center(); 
+		wraparound_check(p7, satellite_7, satellite_7_button);
 	}
 	else if(sat_8_pressed==true){
-		shift_down(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
+		shift_down(satellite_8, satellite_8_button); 
+		p8 = satellite_8.center(); 
+		wraparound_check(p8, satellite_8, satellite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
+   remaining();
+   switch(num_satellites)
+   {
+   	case 2:
+   		minimum_score = populate_possible_scores_2_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 3:
+   		possible_scores = populate_possible_scores_3_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 4:
+   		possible_scores = populate_possible_scores_4_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 5:
+   		possible_scores = populate_possible_scores_5_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 6:
+   		possible_scores = populate_possible_scores_6_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 7:
+   		possible_scores = populate_possible_scores_7_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 8:
+   		possible_scores = populate_possible_scores_8_sats(num_of_possible_scores(num_satellites));
+   		break;
+   }
+   minimum_score = find_min_score(possible_scores);
+   current_score.put(to_string(minimum_score));
 	redraw();
 	game_over_check();
 }
 void Game_window::move_east(){
 	if (sat_1_pressed==true){
-		shift_right(sattelite_1, sattelite_1_button); p1 = sattelite_1.center(); wraparound_check(p1, sattelite_1, sattelite_1_button);
+		shift_right(satellite_1, satellite_1_button); 
+		p1 = satellite_1.center(); 
+		wraparound_check(p1, satellite_1, satellite_1_button);
 	}
 	else if(sat_2_pressed==true){
-		shift_right(sattelite_2, sattelite_2_button); p2 = sattelite_2.center(); wraparound_check(p2, sattelite_2, sattelite_2_button);
+		shift_right(satellite_2, satellite_2_button); 
+		p2 = satellite_2.center(); 
+		wraparound_check(p2, satellite_2, satellite_2_button);
 	}
 	else if(sat_3_pressed==true){ 
-		shift_right(sattelite_3, sattelite_3_button); p3 = sattelite_3.center(); wraparound_check(p3, sattelite_3, sattelite_3_button);
+		shift_right(satellite_3, satellite_3_button); 
+		p3 = satellite_3.center(); 
+		wraparound_check(p3, satellite_3, satellite_3_button);
 	}
 	else if(sat_4_pressed==true){
-		shift_right(sattelite_4, sattelite_4_button); p4 = sattelite_4.center(); wraparound_check(p4, sattelite_4, sattelite_4_button);
+		shift_right(satellite_4, satellite_4_button); 
+		p4 = satellite_4.center(); 
+		wraparound_check(p4, satellite_4, satellite_4_button);
 	}
 	else if(sat_5_pressed==true){
-		shift_right(sattelite_5, sattelite_5_button); p5 = sattelite_5.center(); wraparound_check(p5, sattelite_5, sattelite_5_button);
+		shift_right(satellite_5, satellite_5_button); 
+		p5 = satellite_5.center(); 
+		wraparound_check(p5, satellite_5, satellite_5_button);
 	}
 	else if(sat_6_pressed==true){
-		shift_right(sattelite_6, sattelite_6_button); p6 = sattelite_6.center(); wraparound_check(p6, sattelite_6, sattelite_6_button);
+		shift_right(satellite_6, satellite_6_button); 
+		p6 = satellite_6.center(); 
+		wraparound_check(p6, satellite_6, satellite_6_button);
 	}
 	else if(sat_7_pressed==true){
-		shift_right(sattelite_7, sattelite_7_button); p7 = sattelite_7.center(); wraparound_check(p7, sattelite_7, sattelite_7_button);
+		shift_right(satellite_7, satellite_7_button); 
+		p7 = satellite_7.center(); 
+		wraparound_check(p7, satellite_7, satellite_7_button);
 	}
 	else if(sat_8_pressed==true){
-		shift_right(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
+		shift_right(satellite_8, satellite_8_button); 
+		p8 = satellite_8.center(); 
+		wraparound_check(p8, satellite_8, satellite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
+   remaining();
+   switch(num_satellites)
+   {
+   	case 2:
+   		minimum_score = populate_possible_scores_2_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 3:
+   		possible_scores = populate_possible_scores_3_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 4:
+   		possible_scores = populate_possible_scores_4_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 5:
+   		possible_scores = populate_possible_scores_5_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 6:
+   		possible_scores = populate_possible_scores_6_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 7:
+   		possible_scores = populate_possible_scores_7_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 8:
+   		possible_scores = populate_possible_scores_8_sats(num_of_possible_scores(num_satellites));
+   		break;
+   }
+   minimum_score = find_min_score(possible_scores);
+   current_score.put(to_string(minimum_score));
 	redraw();
 	game_over_check();
 }
 
 void Game_window::move_west(){
 	if (sat_1_pressed==true){
-		shift_left(sattelite_1, sattelite_1_button); p1 = sattelite_1.center(); wraparound_check(p1, sattelite_1, sattelite_1_button);
+		shift_left(satellite_1, satellite_1_button); 
+		p1 = satellite_1.center(); 
+		wraparound_check(p1, satellite_1, satellite_1_button);
 	}
 	else if(sat_2_pressed==true){
-		shift_left(sattelite_2, sattelite_2_button); p2 = sattelite_2.center(); wraparound_check(p2, sattelite_2, sattelite_2_button);
+		shift_left(satellite_2, satellite_2_button); 
+		p2 = satellite_2.center(); 
+		wraparound_check(p2, satellite_2, satellite_2_button);
 	}
 	else if(sat_3_pressed==true){
-		shift_left(sattelite_3, sattelite_3_button); p3 = sattelite_3.center(); wraparound_check(p3, sattelite_3, sattelite_3_button);
+		shift_left(satellite_3, satellite_3_button); 
+		p3 = satellite_3.center(); 
+		wraparound_check(p3, satellite_3, satellite_3_button);
 	}
 	else if(sat_4_pressed==true){
-		shift_left(sattelite_4, sattelite_4_button); p4 = sattelite_4.center(); wraparound_check(p4, sattelite_4, sattelite_4_button);
+		shift_left(satellite_4, satellite_4_button); 
+		p4 = satellite_4.center(); 
+		wraparound_check(p4, satellite_4, satellite_4_button);
 	}
 	else if(sat_5_pressed==true){
-		shift_left(sattelite_5, sattelite_5_button); p5 = sattelite_5.center(); wraparound_check(p5, sattelite_5, sattelite_5_button);
+		shift_left(satellite_5, satellite_5_button); 
+		p5 = satellite_5.center(); 
+		wraparound_check(p5, satellite_5, satellite_5_button);
 	}
 	else if(sat_6_pressed==true){
-		shift_left(sattelite_6, sattelite_6_button); p6 = sattelite_6.center(); wraparound_check(p6, sattelite_6, sattelite_6_button);
+		shift_left(satellite_6, satellite_6_button); 
+		p6 = satellite_6.center(); 
+		wraparound_check(p6, satellite_6, satellite_6_button);
 	}
 	else if(sat_7_pressed==true){
-		shift_left(sattelite_7, sattelite_7_button); p7 = sattelite_7.center(); wraparound_check(p7, sattelite_7, sattelite_7_button);
+		shift_left(satellite_7, satellite_7_button); 
+		p7 = satellite_7.center(); 
+		wraparound_check(p7, satellite_7, satellite_7_button);
 	}
 	else if(sat_8_pressed==true){
-		shift_left(sattelite_8, sattelite_8_button); p8 = sattelite_8.center(); wraparound_check(p8, sattelite_8, sattelite_8_button);
+		shift_left(satellite_8, satellite_8_button); 
+		p8 = satellite_8.center(); 
+		wraparound_check(p8, satellite_8, satellite_8_button);
 	}
 	moves_remaining-=1;
-    remaining();
+   remaining();
+   switch(num_satellites)
+   {
+   	case 2:
+   		minimum_score = populate_possible_scores_2_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 3:
+   		possible_scores = populate_possible_scores_3_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 4:
+   		possible_scores = populate_possible_scores_4_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 5:
+   		possible_scores = populate_possible_scores_5_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 6:
+   		possible_scores = populate_possible_scores_6_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 7:
+   		possible_scores = populate_possible_scores_7_sats(num_of_possible_scores(num_satellites));
+   		break;
+   	case 8:
+   		possible_scores = populate_possible_scores_8_sats(num_of_possible_scores(num_satellites));
+   		break;
+   }
+   minimum_score = find_min_score(possible_scores);
+   current_score.put(to_string(minimum_score));
 	redraw();
 	game_over_check();
 }
@@ -1024,27 +1218,27 @@ void Game_window::wraparound_check(Point& p, Circle& c, Widget & w){
 	}
 }
 
-void Game_window::remove_sattelites(){
+void Game_window::remove_satellites(){
 	if (level_2_pushed==true){
-		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button);
+		detach(satellite_1); detach(satellite_1_button); detach(satellite_2); detach(satellite_2_button);
 	}
 	else if (level_3_pushed==true){
-		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button);
+		detach(satellite_1); detach(satellite_1_button); detach(satellite_2); detach(satellite_2_button); detach(satellite_3); detach(satellite_3_button);
 	}
 	else if(level_4_pushed==true){
-		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button);
+		detach(satellite_1); detach(satellite_1_button); detach(satellite_2); detach(satellite_2_button); detach(satellite_3); detach(satellite_3_button); detach(satellite_4); detach(satellite_4_button);
 	}
 	else if(level_5_pushed==true){
-		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button);
+		detach(satellite_1); detach(satellite_1_button); detach(satellite_2); detach(satellite_2_button); detach(satellite_3); detach(satellite_3_button); detach(satellite_4); detach(satellite_4_button); detach(satellite_5); detach(satellite_5_button);
 	}
 	else if(level_6_pushed==true){
-		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button); detach(sattelite_6); detach(sattelite_6_button);
+		detach(satellite_1); detach(satellite_1_button); detach(satellite_2); detach(satellite_2_button); detach(satellite_3); detach(satellite_3_button); detach(satellite_4); detach(satellite_4_button); detach(satellite_5); detach(satellite_5_button); detach(satellite_6); detach(satellite_6_button);
 	}
 	else if(level_7_pushed==true){
-		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button); detach(sattelite_6); detach(sattelite_6_button); detach(sattelite_7); detach(sattelite_7_button);
+		detach(satellite_1); detach(satellite_1_button); detach(satellite_2); detach(satellite_2_button); detach(satellite_3); detach(satellite_3_button); detach(satellite_4); detach(satellite_4_button); detach(satellite_5); detach(satellite_5_button); detach(satellite_6); detach(satellite_6_button); detach(satellite_7); detach(satellite_7_button);
 	}
 	else if(level_8_pushed==true){
-		detach(sattelite_1); detach(sattelite_1_button); detach(sattelite_2); detach(sattelite_2_button); detach(sattelite_3); detach(sattelite_3_button); detach(sattelite_4); detach(sattelite_4_button); detach(sattelite_5); detach(sattelite_5_button); detach(sattelite_6); detach(sattelite_6_button); detach(sattelite_7); detach(sattelite_7_button); detach(sattelite_8); detach(sattelite_8_button);
+		detach(satellite_1); detach(satellite_1_button); detach(satellite_2); detach(satellite_2_button); detach(satellite_3); detach(satellite_3_button); detach(satellite_4); detach(satellite_4_button); detach(satellite_5); detach(satellite_5_button); detach(satellite_6); detach(satellite_6_button); detach(satellite_7); detach(satellite_7_button); detach(satellite_8); detach(satellite_8_button);
 	}
 	reset_level_bools();
 }
@@ -1055,6 +1249,8 @@ void Game_window::takedown_win_5(){
 	detach(south_button);
 	detach(east_button);
 	detach(west_button);
+	detach(current_score);
+	detach(selected_satellite);
 
 	detach(button_cover_north);
 	detach(button_cover_south);
@@ -1064,21 +1260,193 @@ void Game_window::takedown_win_5(){
 	detach(button_text_south);
 	detach(button_text_east);
 	detach(button_text_west);
-    detach(moves_remaining_out);
-	remove_sattelites();
-	
+   detach(moves_remaining_out);
+	remove_satellites();
 }
 
 //void Game_window::reset_sat_bools(){
 	//sat_1_pressed=false;
 	//sat_2_pressed=false;
-//	sat_3_pressed=false;
-//	sat_4_pressed=false;
-//	sat_5_pressed=false;
-//	sat_6_pressed=false;
-//	sat_7_pressed=false;
-//	sat_8_pressed=false;
+	//sat_3_pressed=false;
+	//sat_4_pressed=false;
+	//sat_5_pressed=false;
+	//sat_6_pressed=false;
+	//sat_7_pressed=false;
+	//sat_8_pressed=false;
 //}
+
+
+int Game_window::num_of_possible_scores(int n)
+{
+	n--;
+	if(n == 1)
+	{
+		return n;
+	}
+	else
+	{
+		return n + num_of_possible_scores(n);
+	}
+}
+
+int Game_window::populate_possible_scores_2_sats(int n)
+{
+	return 2*Game_window::find_distance(p1, p2);
+}
+vector<int> Game_window::populate_possible_scores_3_sats(int n)
+{
+	vector<Point> points;
+	vector<int> possible_scores;
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	for(int i = 0; i < points.size(); i++)
+	{
+		for(int j = i + 1; j < points.size(); j++)
+		{
+			possible_scores.push_back(3*Game_window::find_distance(points[i], points[j]));
+		}
+	}
+	return possible_scores;	
+}
+
+vector<int> Game_window::populate_possible_scores_4_sats(int n)
+{
+	vector<Point> points;
+	vector<int> possible_scores;
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	points.push_back(p4);
+	for(int i = 0; i < points.size(); i++)
+	{
+		for(int j = i + 1; j < points.size(); j++)
+		{
+			possible_scores.push_back(4*Game_window::find_distance(points[i], points[j]));
+		}
+	}
+	return possible_scores;	
+}
+
+vector<int> Game_window::populate_possible_scores_5_sats(int n)
+{
+	vector<Point> points;
+	vector<int> possible_scores;
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	points.push_back(p4);
+	points.push_back(p5);
+	for(int i = 0; i < points.size(); i++)
+	{
+		for(int j = i + 1; j < points.size(); j++)
+		{
+			possible_scores.push_back(5*Game_window::find_distance(points[i], points[j]));
+		}
+	}
+	return possible_scores;	
+}
+
+vector<int> Game_window::populate_possible_scores_6_sats(int n)
+{
+	vector<Point> points;
+	vector<int> possible_scores;
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	points.push_back(p4);
+	points.push_back(p5);
+	points.push_back(p6);
+	for(int i = 0; i < points.size(); i++)
+	{
+		for(int j = i + 1; j < points.size(); j++)
+		{
+			possible_scores.push_back(6*Game_window::find_distance(points[i], points[j]));
+		}
+	}
+	return possible_scores;
+}
+
+vector<int> Game_window::populate_possible_scores_7_sats(int n)
+{
+	vector<Point> points;
+	vector<int> possible_scores;
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	points.push_back(p4);
+	points.push_back(p5);
+	points.push_back(p6);
+	points.push_back(p7);
+	for(int i = 0; i < points.size(); i++)
+	{
+		for(int j = i + 1; j < points.size(); j++)
+		{
+			possible_scores.push_back(7*Game_window::find_distance(points[i], points[j]));
+		}
+	}
+	return possible_scores;
+}
+
+vector<int> Game_window::populate_possible_scores_8_sats(int n)
+{
+	vector<Point> points;
+	vector<int> possible_scores;
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	points.push_back(p4);
+	points.push_back(p5);
+	points.push_back(p6);
+	points.push_back(p7);
+	points.push_back(p8);
+	for(int i = 0; i < points.size(); i++)
+	{
+		for(int j = i + 1; j < points.size(); j++)
+		{
+			possible_scores.push_back(8*Game_window::find_distance(points[i], points[j]));
+		}
+	}
+	return possible_scores;
+}
+
+int Game_window::find_min_score(vector<int> s)
+{
+	int a = 0;
+	for(int i = 0; i < s.size(); i++)
+	{
+		if(s[i] < s[a])
+		{
+			a = i;
+		}
+	}
+	return s[a];
+}
+
+double Game_window::convert_radians(double a)
+{
+	return a * 3.14159 / 180;
+}
+
+int Game_window::find_distance(Point a, Point b)
+{
+	int r = 4000;
+	double lat1 = Game_window::convert_radians(340 - a.x * 90/340);
+	double lat2 = Game_window::convert_radians(340 - b.x * 90/340);
+	double lon1 = Game_window::convert_radians(675 - a.y * 180/675);
+	double lon2 = Game_window::convert_radians(675 - b.y * 180/675);
+	
+	double dLat = (lat1 - lat2);
+   double dLon = (lon1 - lon2);
+   
+   double n1 = sin(dLat/2);
+   double n2 = sin(dLon/2);
+
+   double c = pow(n1,2) + cos(lat1) * cos(lat2) * pow(n2,2);
+   double e = 2 * atan2(sqrt(c), sqrt(1-c));
+   double d = r * e;
+   return d;
+}
 
 //--------------------------------------Game Over Screen---------------------------------------------
 
@@ -1126,7 +1494,7 @@ void Game_window::new_game(){
 	takedown_win_6();
 	design_win_3();
 	build_win_3();
-	moves_remaining=50;
+	moves_remaining = 50;
 }
 
 void Game_window::quit_game(){
